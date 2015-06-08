@@ -1,0 +1,10 @@
+.uly-clip-icon {
+	display: inline-block;
+	/*background: url(clip.png) no-repeat;*/
+	width: 16px;
+	height: 16px;
+}
+.uly-farOnTop {
+	position: absolute;
+	top: -10000px;
+}

@@ -1,0 +1,16 @@
+{
+  "manifest_version": 2,
+  "name": "rally ",
+  "version": "0.0.1",
+  "description":"Experimental",
+  "content_scripts":[
+    {
+      "matches":["https://rally1.rallydev.com/*"],
+      "css":["theme.css"],
+			"js": ["inject-clips.js"]
+    }
+  ],
+	"web_accessible_resources": [
+		"images/*.png"
+	]
+}
