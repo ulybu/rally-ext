@@ -9,6 +9,18 @@
 	height: 16px;
 	color: #444;
 }
+.octicon-check {
+	color: #3a874f;
+}
+.octicon-check:hover {
+	color: #8dc63f;
+}
+.octicon-x {
+	color: #b81b10;
+}
+.octicon-x:hover {
+	color: #E12114;
+}
 .uly-farOnTop {
 	position: absolute;
 	top: -10000px;
