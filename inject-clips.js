@@ -54,7 +54,7 @@ uly.injectLinks = function() {
     iconElem.classList.add('octicon-clippy');
     iconElem.classList.add('octicon');
     iconElem.addEventListener('click', uly.copyToClipb);
-    link.appendChild(iconElem);
+    link.parentElement.appendChild(iconElem);
   }
 }
 

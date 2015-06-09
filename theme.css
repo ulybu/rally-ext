@@ -1,5 +1,9 @@
+.uly-clip-icon:hover {
+	color: #076692;
+}
 .uly-clip-icon {
 	display: inline-block;
+	cursor: pointer;
 	text-indent: 5px;
 	width: 16px;
 	height: 16px;
