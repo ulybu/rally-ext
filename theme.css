@@ -1,5 +1,5 @@
 .uly-clip-icon:hover {
-	color: #076692;
+	color: #888;
 }
 .uly-clip-icon {
 	display: inline-block;
@@ -7,6 +7,7 @@
 	text-indent: 5px;
 	width: 16px;
 	height: 16px;
+	color: #444;
 }
 .uly-farOnTop {
 	position: absolute;
