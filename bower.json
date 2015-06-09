@@ -1,0 +1,16 @@
+{
+  "name": "rally-ext",
+  "dependencies": {
+    "octicons": "*"
+  },
+  "version": "0.0.2",
+  "homepage": "https://github.com/ulybu/rally-ext",
+  "authors": [
+    "Ulysse Prygiel <ulysse.prygiel@gmail.com>"
+  ],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "bower_components"
+  ]
+}
