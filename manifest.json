@@ -2,11 +2,11 @@
   "manifest_version": 2,
   "name": "rally ",
   "version": "0.0.2",
-  "description":"Experimental",
+  "description":"Add Some goodies to Rally",
 	"author": "ulysse.prygiel@gmail.com",
   "content_scripts":[
     {
-      "matches":["https://rally1.rallydev.com/*"],
+      "matches":["https://*.rallydev.com/*"],
       "css":["icons/octicons.css", "theme.css"],
 			"js": ["inject-clips.js"]
     }
