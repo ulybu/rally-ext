@@ -1,6 +1,16 @@
 window.uly = {};
 uly.iconClass = 'uly-clip-icon';
-uly.clipUrl = chrome.extension.getURL('images/clip.png');
+uly.fontUrl = chrome.extension.getURL('icons/octicons.woff');
+
+var fontFaceStyle = document.createElement('style');
+fontFaceStyle.appendChild(document.createTextNode("\
+@font-face {\
+    font-family: 'octicons';\
+    src: url('" + uly.fontUrl + "') format('woff');\
+}\
+"));
+document.head.appendChild(fontFaceStyle);
+
 // Dummy element to use as a text buffer
 uly.p = document.createElement("p");
 uly.p.classList.add('uly-farOnTop');
@@ -41,7 +51,8 @@ uly.injectLinks = function() {
   for (var i=0, link, iconElem; (link=uly.links[i]); i++) {
     iconElem = document.createElement("span");
     iconElem.classList.add(uly.iconClass);
-    iconElem.style.backgroundImage = "url(" + uly.clipUrl + "), none";
+    iconElem.classList.add('octicon-clippy');
+    iconElem.classList.add('octicon');
     iconElem.addEventListener('click', uly.copyToClipb);
     link.appendChild(iconElem);
   }

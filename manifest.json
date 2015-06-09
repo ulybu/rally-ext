@@ -3,14 +3,15 @@
   "name": "rally ",
   "version": "0.0.1",
   "description":"Experimental",
+	"author": "ulysse.prygiel@gmail.com",
   "content_scripts":[
     {
       "matches":["https://rally1.rallydev.com/*"],
-      "css":["theme.css"],
+      "css":["icons/octicons.css", "theme.css"],
 			"js": ["inject-clips.js"]
     }
   ],
 	"web_accessible_resources": [
-		"images/*.png"
+		"icons/*.woff"
 	]
 }
