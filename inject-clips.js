@@ -54,12 +54,11 @@ uly.copyToClipb = function(e) {
 }
 
 uly.injectLinks = function() {
-  uly.links = document.querySelectorAll(".formatted-id-template");
+  uly.links = document.querySelectorAll(".formatted-id-template:not(.uly-injected)");
   // Not very performance friendly, but currently got now way
   // to know when links are created (after async calls to a back-end)
-  if ( uly.areClipsInjected() ) {
-    console.log("Clips already injected");
-    return;
+  if ( uly.links.length > 0 ) {
+    console.log('Found '+uly.links.length+' links without copy-to-clip button');
   }
 
   for (var i=0, link, iconElem; (link=uly.links[i]); i++) {
