@@ -1,9 +1,9 @@
 {
-  "name": "rally-ext",
+  "name": "rally",
   "dependencies": {
     "octicons": "*"
   },
-  "version": "0.0.2",
+  "version": "0.1.0",
   "homepage": "https://github.com/ulybu/rally-ext",
   "authors": [
     "Ulysse Prygiel <ulysse.prygiel@gmail.com>"
@@ -12,5 +12,6 @@
   "ignore": [
     "**/.*",
     "bower_components"
-  ]
+  ],
+  "description": "Add Some goodies to Rally"
 }
