@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "Add Some goodies to Rally",
   "main": "inject-clips.js",
-  "dependencies": {
-    "gulp": "^3.9.0"
-  },
   "devDependencies": {
     "del": "^1.2.0",
     "gulp": "^3.9.0",
@@ -17,7 +14,9 @@
     "gulp-zip": "^3.0.2"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "node_modules/.bin/gulp build",
+    "zip": "node_modules/.bin/gulp zip"
   },
   "repository": {
     "type": "git",
