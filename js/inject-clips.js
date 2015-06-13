@@ -40,14 +40,35 @@ window.uly = {
     tempNode.classList.add('octicon');
     return tempNode;
   },
-  copyToClipb : function(e) {
-    // get the text from the sibling link
+  doubleClickHandler : function(e) {
+    var icon = e.target
+      , url = icon.parentElement.querySelector('.formatted-id-link').textContent.trim()
+      , succeeded = this.copyToClipb(url)
+      , whichIcon = succeeded ? 'octicon-checklist' : 'octicon-x'
+      ;
+    this.displayFeedbackIcon(icon, whichIcon);
+  },
+  clickHandler : function(e) {
     var icon = e.target
       , url = icon.parentElement.querySelector('.formatted-id-link').href
-      , succeeded = true
-      , whichIcon
+      , succeeded = this.copyToClipb(url)
+      , whichIcon = succeeded ? 'octicon-check' : 'octicon-x'
       ;
-    this.p.textContent = url;
+    this.displayFeedbackIcon(icon, whichIcon);
+  },
+  displayFeedbackIcon : function(icon, className) {
+    icon.classList.add(className);
+    icon.classList.remove('octicon-clippy');
+    setTimeout(function(){
+      icon.classList.remove(className);
+      icon.classList.add('octicon-clippy');
+    },this.userConf.checkMarkFadeAwayDelay);
+  },
+  copyToClipb : function(text, cb) {
+    // get the text from the sibling link
+    var succeeded = true
+      ;
+    this.p.textContent = text;
     window.getSelection().addRange(this.range);
 
     try {
@@ -57,17 +78,10 @@ window.uly = {
       console.log('Copy US/Task was ' + msg);
       // console.log("after try");
     } catch(err) {
-      succeeeded = false;
+      succeeded = false;
       console.log('Oops, unable to copy');
-    } finally {
-      whichIcon = succeeded ? 'octicon-check' : 'octicon-x';
-      icon.classList.add(whichIcon);
-      icon.classList.remove('octicon-clippy');
-      setTimeout(function(){
-        icon.classList.remove(whichIcon);
-        icon.classList.add('octicon-clippy');
-      },this.userConf.checkMarkFadeAwayDelay);
     }
+    return succeeded;
   },
   injectLinks : function() {
     var injectedClass = this._conf.injectedFlagClass
@@ -81,7 +95,8 @@ window.uly = {
     for (var i=0, link, iconElem; (link=links[i]); i++) {
       link.classList.add(injectedClass);
       iconElem = this.iconTemplate.cloneNode();
-      iconElem.addEventListener('click', this.copyToClipb.bind(this));
+      iconElem.addEventListener('click', this.clickHandler.bind(this));
+      iconElem.addEventListener('dblclick', this.doubleClickHandler.bind(this));
       link.parentElement.appendChild(iconElem);
     }
   },
