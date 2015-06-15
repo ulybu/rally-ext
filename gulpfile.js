@@ -26,18 +26,18 @@ gulp.task('clean',function(cb) {
   del(['build',zipName], cb);
 })
 gulp.task('copy-non-minified', ['clean'], function() {
-  return gulp.src(['manifest.json','icons/*', 'css/*'])
+  return gulp.src(['manifest.json','icons/*', 'src/injection/*.css'])
     .pipe(copy('build'));
 })
-gulp.task('compress', ['clean'], function() {
-  return gulp.src('js/*.js')
+gulp.task('build-injection', ['clean'], function() {
+  return gulp.src('src/injection/*.js')
     .pipe(uglify())
-    .pipe(gulp.dest('build/js'));
+    .pipe(gulp.dest('build/src/injection'));
 })
 gulp.task('zip', ['build'], function() {
   return gulp.src('build/**')
     .pipe(zip(zipName))
     .pipe(gulp.dest('.'));
 })
-gulp.task('build', ['compress','copy-non-minified']);
+gulp.task('build', ['build-injection','copy-non-minified']);
 gulp.task('default',['build']);
