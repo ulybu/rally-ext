@@ -13,5 +13,10 @@
     "**/.*",
     "bower_components"
   ],
-  "description": "Add Some goodies to Rally"
+  "description": "Add Some goodies to Rally",
+  "devDependencies": {
+    "polymer": "Polymer/polymer#~1.0.3",
+    "paper-input": "polymerElements/paper-input#~1.0.3",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.0.1"
+  }
 }

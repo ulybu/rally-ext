@@ -13,5 +13,6 @@
   ],
 	"web_accessible_resources": [
 		"icons/*.woff"
-	]
+	],
+  "options_page": "src/options/options.html"
 }
