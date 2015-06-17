@@ -1,23 +1,58 @@
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 
 <dom-module id="rally-options">
 
   <style>
+  a { text-decoration: none; color:white}
+  a:visited { text-decoration: none; }
+  a:hover { text-decoration: none; }
+  a:focus { text-decoration: none; }
+  a:hover, a:active { text-decoration: none; }
   .settingBox {
     max-width: 400px;
+  }
+  :host {
+    /*text-indent: 56px;*/
+    --paper-toolbar-background : green;
+    /*--paper-toolbar-background : #0096D6;*/
+  }
+  .page {
+    padding: 48px 62px;
+  }
+  paper-material {
+    margin-bottom: 32px;
+    padding: 16px 30px;
   }
   </style>
 
   <template>
-    <h1>Options</h1>
-    <h2>Copy to clipboard</h2>
-    <div class="settingBox">
-      <paper-input
-        label="Refresh Frequency"
-        type="number"></paper-input>
-    </div>
+    <paper-header-panel class="flex">
+      <paper-toolbar>
+        <span class="title">Rally Extension</span>
+        <paper-button >
+          <a target="_blank" href="https://github.com/ulybu/rally-ext">
+            <span class="octicon octicon-logo-github"></span>
+          </a>
+        </paper-button>
+      </paper-toolbar>
+      <div class="page">
+        <paper-material>
+          <h1>Copy to clipboard</h1>
+          <div class="settingBox">
+            <paper-input
+              label="Refresh Frequency"
+              type="number"></paper-input>
+          </div>
+        </paper-material>
+      </div>
+    </paper-header-panel>
   </template>
 
 </dom-module>
@@ -36,4 +71,3 @@
     },
   });
 </script>
-<rally-options></rally-options>

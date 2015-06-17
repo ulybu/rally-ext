@@ -20,7 +20,7 @@ var syncOptions = {
 };
 
 gulp.task('build-wc', ['clean'], function() {
-  return gulp.src('src/options/options.html')
+  return gulp.src('src/options/index.html')
   .pipe(polybuild({
     maximumCrush: true
   }))
@@ -28,8 +28,8 @@ gulp.task('build-wc', ['clean'], function() {
 ;
 });
 gulp.task('rename-wc', ['build-wc'], function() {
-  return gulp.src('build/src/options/options.build.html')
-  .pipe(rename("build/src/options/options.html"))
+  return gulp.src('build/src/options/index.build.html')
+  .pipe(rename("build/src/options/index.html"))
   .pipe(gulp.dest('.'))
 ;
 });
