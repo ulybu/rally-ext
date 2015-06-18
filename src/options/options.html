@@ -6,6 +6,7 @@
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="setting-section.html">
 
 <dom-module id="rally-options">
 
@@ -18,17 +19,13 @@
   .settingBox {
     max-width: 400px;
   }
-  :host {
-    /*text-indent: 56px;*/
+  paper-toolbar {
+    /*Don't understand why this doesn't work*/
     --paper-toolbar-background : green;
     /*--paper-toolbar-background : #0096D6;*/
   }
   .page {
     padding: 48px 62px;
-  }
-  paper-material {
-    margin-bottom: 32px;
-    padding: 16px 30px;
   }
   </style>
 
@@ -43,14 +40,18 @@
         </paper-button>
       </paper-toolbar>
       <div class="page">
-        <paper-material>
-          <h1>Copy to clipboard</h1>
+        <setting-section sectionName="Copy to clipboard">
           <div class="settingBox">
             <paper-input
               label="Refresh Frequency"
               type="number"></paper-input>
           </div>
-        </paper-material>
+        </setting-section>
+        <setting-section sectionName="Second Section">
+          <div class="settingBox" style = "min-height:100px;">
+            Some settings
+          </div>
+        </setting-section>
       </div>
     </paper-header-panel>
   </template>
