@@ -15,7 +15,7 @@
           on-change="highlightSection"
           on-focus="highlightSection"
           type="number"
-          value="{{identity(conf.injectionInterval)}}"></paper-input>
+          value="{{formatToSeconds(conf.injectionInterval)}}"></paper-input>
       </div>
     </setting-section>
 </template>
@@ -30,16 +30,18 @@
         notify:true
       }
     },
-    identity: function(val) {
-      return val;
+    formatToSeconds: function(val) {
+      return Math.round(val/100)/10;
     },
     save: function(e) {
       e.detail.section="copyToClipboard";
-      this.conf.injectionInterval = Number.parseInt(this.$.refresh.value,10);
+      var injectionInt = Math.round(Number.parseInt(this.$.refresh.value,10)*10)*100
+        ;
+      this.conf.injectionInterval = injectionInt;
     },
 
     doLabels: function(newVal) {
-      this.$.refresh.label= "Previous value: "+newVal.injectionInterval;
+      this.$.refresh.label= "Previous value: "+this.formatToSeconds(newVal.injectionInterval) + " sec";
     },
     // Element Lifecycle
     ready: function() {
