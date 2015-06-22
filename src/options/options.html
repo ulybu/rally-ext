@@ -7,6 +7,7 @@
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="setting-section.html">
+<link rel="import" href="copy-to-clipboard.html">
 
 <dom-module id="rally-options">
 
@@ -40,14 +41,8 @@
         </paper-button>
       </paper-toolbar>
       <div class="page">
-        <setting-section sectionName="Copy to clipboard">
-          <div class="settingBox">
-            <paper-input
-              label="Refresh Frequency"
-              type="number"></paper-input>
-          </div>
-        </setting-section>
-        <setting-section sectionName="Second Section">
+        <copy-to-clipboard on-save="save" conf="{{conf}}"></copy-to-clipboard>
+        <setting-section notresetable sectionName="Second Section">
           <div class="settingBox" style = "min-height:100px;">
             Some settings
           </div>
@@ -62,8 +57,25 @@
   Polymer({
     is: 'rally-options',
     properties: {
+      conf:{
+        type:String
+      }
     },
-    // Element Lifecycle
+    created: function() {
+      function whenConfLoaded () {
+        this.conf = rallyExtension.config.get();
+      }
+
+      if(rallyExtension.config.confLoaded){
+        whenConfLoaded();
+      } else {
+        document.addEventListener("rallyExt-configLoaded", whenConfLoaded.bind(this))
+      }
+    },
+    save: function(e) {
+      console.log("option",this.conf.injectionInterval,e.detail);
+      rallyExtension.config.set(this.conf);
+    },
     ready: function() {
     },
     attached: function() {

@@ -4,7 +4,7 @@
     paper-material {
       margin-bottom: 32px;
       padding: 16px 30px;
-      color: var(--paper-toolbar-background);
+      background-color: #f7f7f7;
     }
     h1 {
       color: #444444;
@@ -23,21 +23,24 @@
     }
   </style>
   <template>
-  <paper-material>
+  <paper-material animated id="material">
     <div class="layout horizontal">
       <h1>{{sectionname}}</h1>
       <div class="flex"></div>
       <div class="horizontal layout center">
         <paper-fab mini
+          disabled$="{{notresetable}}"
           style="margin: 0 16px 0 0;"
-          icon="restore" title="restore"
+          icon="settings-backup-restore" title="restore"
           tabindex="0" class="restore"></paper-fab>
       </div>
     </div>
     <content></content>
     <div class="layout horizontal footer">
       <div class="flex"></div>
-      <paper-fab icon="done" title="done" tabindex="0" class="done"></paper-fab>
+      <paper-fab class="done" icon="done"
+        on-tap="fireSave"
+        title="done" tabindex="0"></paper-fab>
     </div>
   </paper-material>
 </template>
@@ -47,9 +50,23 @@
     is: 'setting-section',
     properties: {
       sectionname: {
-          type: String,
-          value: 'Unnamed Section'
-        }
+        type: String,
+        value: 'Unnamed Section'
+      },
+      notresetable: {
+        type: Boolean,
+        value: false
+      },
+      highlighted: {
+        type: Boolean,
+        observer: 'highlight'
+      }
+    },
+    fireSave: function() {
+      this.fire('save');
+    },
+    highlight: function(newval) {
+      this.$.material.elevation = newval? 4: 1;
     },
     // Element Lifecycle
     ready: function() {

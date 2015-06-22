@@ -1,0 +1,61 @@
+<link rel="import" href="setting-section.html">
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<dom-module id="copy-to-clipboard">
+  <style>
+    .refresh {
+      max-width: 200px
+    }
+  </style>
+  <template>
+    <setting-section id="section" notresetable sectionname="Copy To Clipboard"
+      on-save="save">
+      <div class="settingBox">
+        <paper-input id="refresh" class="refresh"
+          label=""
+          on-change="highlightSection"
+          on-focus="highlightSection"
+          type="number"
+          value="{{identity(conf.injectionInterval)}}"></paper-input>
+      </div>
+    </setting-section>
+</template>
+</dom>
+<script>
+  Polymer({
+    is: 'copy-to-clipboard',
+    properties: {
+      conf: {
+        type: Object,
+        observer: "doLabels",
+        notify:true
+      }
+    },
+    identity: function(val) {
+      return val;
+    },
+    save: function(e) {
+      e.detail.section="copyToClipboard";
+      this.conf.injectionInterval = Number.parseInt(this.$.refresh.value,10);
+    },
+
+    doLabels: function(newVal) {
+      this.$.refresh.label= "Previous value: "+newVal.injectionInterval;
+    },
+    // Element Lifecycle
+    ready: function() {
+    },
+    highlightSection: function(toggle) {
+      return function() {
+        this.$.section.highlighted = toggle;
+      }
+    },
+    attached: function() {
+      var focusers = Polymer.dom(this).querySelectorAll('.focuser')
+        ;
+      this.$.refresh.$.input.addEventListener('focus',this.highlightSection(true).bind(this))
+      this.$.refresh.$.input.addEventListener('blur',this.highlightSection(false).bind(this))
+    },
+    detached: function() {
+    },
+  });
+</script>
