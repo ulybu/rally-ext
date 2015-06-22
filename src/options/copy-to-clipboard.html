@@ -5,17 +5,26 @@
     .refresh {
       max-width: 200px
     }
+    .description {
+      font-size: 14px;
+      padding: 12px 10px 10px 20px;
+    }
   </style>
   <template>
     <setting-section id="section" notresetable sectionname="Copy To Clipboard"
       on-save="save">
-      <div class="settingBox">
+      <div class="settingBox layout horizontal">
         <paper-input id="refresh" class="refresh"
           label=""
           on-change="highlightSection"
           on-focus="highlightSection"
           type="number"
           value="{{formatToSeconds(conf.injectionInterval)}}"></paper-input>
+          <div class="flex description">
+            The frequency the extension will look for links
+             and add the copy-to-clipboard icon next to it.<br/>
+            With a smaller value, the icons will appear quicker but it can affect performance (not measured)
+          </div>
       </div>
     </setting-section>
 </template>

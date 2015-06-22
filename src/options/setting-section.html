@@ -21,6 +21,9 @@
     .footer {
       margin: 15px 8px 10px 0;
     }
+    .container {
+      margin-right: 55px;
+    }
   </style>
   <template>
   <paper-material animated id="material">
@@ -35,7 +38,9 @@
           tabindex="0" class="restore"></paper-fab>
       </div>
     </div>
-    <content></content>
+    <div class="container">
+      <content></content>
+    </div>
     <div class="layout horizontal footer">
       <div class="flex"></div>
       <paper-fab class="done" icon="done"
