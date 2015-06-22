@@ -41,6 +41,7 @@ window.uly = {
     return tempNode;
   },
   doubleClickHandler : function(e) {
+    e.stopPropagation();
     var icon = e.target
       , url = icon.parentElement.querySelector('.formatted-id-link').textContent.trim()
       , succeeded = this.copyToClipb(url)
@@ -49,6 +50,7 @@ window.uly = {
     this.displayFeedbackIcon(icon, whichIcon);
   },
   clickHandler : function(e) {
+    e.stopPropagation();
     var icon = e.target
       , url = icon.parentElement.querySelector('.formatted-id-link').href
       , succeeded = this.copyToClipb(url)
