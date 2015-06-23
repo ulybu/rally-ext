@@ -64,12 +64,24 @@
     },
     save: function(e) {
       e.detail.section='copyToClipboard';
-      this.saveNumValue(this.$.refresh.value,'injectionInterval');
-      this.saveNumValue(this.$.fadeaway.value,'checkMarkFadeAwayDelay');
+      var isSuccess = true;
+      try {
+        this.saveNumValue(this.$.refresh.value,'injectionInterval');
+        this.saveNumValue(this.$.fadeaway.value,'checkMarkFadeAwayDelay');
+      } catch (saveNumE) {
+        e.detail.error = saveNumE;
+        isSuccess = false;
+      } finally {
+        // this.fire(isSuccess? 'save-success':'save-error');
+      }
     },
     saveNumValue: function(val,name) {
+      if(val==='') return;
       var numVal = Number.parseInt(val,10);
-      if(isNaN(numVal)) return;
+      if(isNaN(numVal)) {
+        throw "Invalid input. Couldn't be parsed as a number"
+        return;
+      }
       var inSec = Math.round(Number.parseInt(val,10)*10)*100;
       this.conf[name] = Math.round(numVal*10)*100;
     },

@@ -5,6 +5,7 @@
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="setting-section.html">
 <link rel="import" href="copy-to-clipboard.html">
@@ -46,13 +47,16 @@
         </paper-button>
       </paper-toolbar>
       <div class="page">
-        <copy-to-clipboard on-save="save" conf="{{conf}}"></copy-to-clipboard>
+        <copy-to-clipboard
+          on-save="save"
+          conf="{{conf}}"></copy-to-clipboard>
         <setting-section notresetable sectionName="Second Section">
           <div class="settingBox" style = "min-height:100px;">
             Some settings
           </div>
         </setting-section>
       </div>
+      <paper-toast id="toast" duration="7000"></paper-toast>
     </paper-header-panel>
   </template>
 
@@ -64,6 +68,12 @@
     properties: {
       conf:{
         type:String
+      }
+    },
+    toastTexts: {
+      save : {
+        success: "Your settings have been saved (details in the console)",
+        error: "Error while saving settings. May be some more info in the console"
       }
     },
     created: function() {
@@ -78,7 +88,31 @@
       }
     },
     save: function(e) {
-      rallyExtension.config.set(this.conf);
+      var isSuccess = true
+        , error
+        ;
+      if(e.detail.error) {
+        isSuccess = false;
+        error = e.detail.error;
+      } else {
+        try {
+          rallyExtension.config.set(this.conf);
+        } catch (storageSaveE) {
+          isSuccess = false;
+          error = storageSaveE;
+        }
+      }
+      if(!isSuccess) {
+        console.error("Error during saving settings.", error);
+      }
+      this.showToast('save',isSuccess)
+    },
+    showToast: function(action,isSuccess) {
+      var toast = this.$.toast
+        , text = this.toastTexts[action][isSuccess?'success':'error']
+        ;
+      toast.text = text;
+      toast.show();
     },
     ready: function() {
     },
