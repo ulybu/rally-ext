@@ -43,7 +43,7 @@ gulp.task('clean',function(cb) {
   del(['build',zipName], cb);
 })
 gulp.task('copy-non-minified', ['clean'], function() {
-  return gulp.src(['manifest.json','icons/*', 'src/injection/*.css',"src/shared/config.js"])
+  return gulp.src(['manifest.json','icons/*', 'src/injection/*.css',"src/shared/*.js"])
     .pipe(copy('build'));
 })
 gulp.task('build-injection', ['clean'], function() {
