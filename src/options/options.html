@@ -4,6 +4,7 @@
 <link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
 <link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../../bower_components/paper-material/paper-material.html">
 <link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
 <link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
@@ -18,14 +19,7 @@
   a:hover { text-decoration: none; }
   a:focus { text-decoration: none; }
   a:hover, a:active { text-decoration: none; }
-  .settingBox {
-    max-width: 400px;
-  }
-  paper-toolbar {
-    /*Don't understand why this doesn't work*/
-    --paper-toolbar-background : green;
-    /*--paper-toolbar-background : #0096D6;*/
-  }
+
   :host {
     --hp-blue: #0096D6;
     --hp-blue-dark: #0775A5;
@@ -34,17 +28,24 @@
   .page {
     padding: 48px 62px;
   }
+  .octicon-logo-github {
+    padding-top: 4px;
+  }
   </style>
 
   <template>
     <paper-header-panel class="flex">
       <paper-toolbar>
         <span class="title">Rally Extension</span>
+        <div class="flex"></div>
         <paper-button >
           <a target="_blank" href="https://github.com/ulybu/rally-ext">
             <span class="octicon octicon-logo-github"></span>
           </a>
         </paper-button>
+        <a target="_blank" href="https://github.com/ulybu/rally-ext/issues">
+          <paper-icon-button icon="bug-report"></paper-icon-button>
+        </a>
       </paper-toolbar>
       <div class="page">
         <copy-to-clipboard

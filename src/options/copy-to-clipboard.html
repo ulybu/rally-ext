@@ -71,8 +71,6 @@
       } catch (saveNumE) {
         e.detail.error = saveNumE;
         isSuccess = false;
-      } finally {
-        // this.fire(isSuccess? 'save-success':'save-error');
       }
     },
     saveNumValue: function(val,name) {
