@@ -17,11 +17,11 @@ window.rallyExtension.config = {
     chrome.storage.sync.set({
       userConf: confToSave
     }, function() {
-      console.log("New config sync'ed: ", confToSave);
+      console.log("[config] New config sync'ed: ", confToSave);
     })
   },
   getDefault: function() {
-    return this.defaultUserConf();
+    return this.defaultUserConf;
   },
   initConfig: function() {
     var loadedEvent = new Event('rallyExt-configLoaded')

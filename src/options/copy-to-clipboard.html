@@ -22,8 +22,8 @@
     }
   </style>
   <template>
-    <setting-section id="section" notresetable sectionname="Copy To Clipboard"
-      on-save="save">
+    <setting-section id="section" sectionname="Copy To Clipboard"
+      on-save="save" on-restore="restore">
       <div class="settingBox">
         <h2>Icons refresh frenquency</h2>
         <paper-input id="refresh"
@@ -57,10 +57,17 @@
         type: Object,
         observer: "doLabels",
         notify:true
+      },
+      optionNames: {
+        type: Array,
+        value : [ 'injectionInterval', 'checkMarkFadeAwayDelay']
       }
     },
     formatToSeconds: function(val) {
       return Math.round(val/100)/10;
+    },
+    restore: function(e) {
+      e.detail.optionNames = this.optionNames;
     },
     save: function(e) {
       e.detail.section='copyToClipboard';

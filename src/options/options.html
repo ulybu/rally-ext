@@ -54,6 +54,7 @@
       <div class="page">
         <copy-to-clipboard
           on-save="saveSection"
+          on-restore="restoreSection"
           conf="{{conf}}"></copy-to-clipboard>
         <setting-section notresetable sectionName="Second Section">
           <div class="settingBox" style = "min-height:100px;">
@@ -79,6 +80,10 @@
       save : {
         success: "Your settings have been saved (details in the console)",
         error: "Error while saving settings. May be some more info in the console"
+      },
+      restore : {
+        success: "Default settings have been restored. Refresh the page to see them. (details in the console)",
+        error: "Error while retoring default settings. May be some more info in the console"
       }
     },
     created: function() {
@@ -93,13 +98,14 @@
       }
     },
     saveSection: function(e) {
-      this.saveSome(e.detail.options,e.detail.error,true);
+      var isSuccess = this.saveSome(e.detail.options,e.detail.error,this);
+      this.showToast('save',isSuccess)
     },
-    saveSome: function(some,error,showToast) {
+    saveSome: function(some,error) {
       _.assign(this.conf, some);
-      this.save(error,showToast);
+      return this.save(error);
     },
-    save: function(inError,showToast) {
+    save: function(inError) {
       var isSuccess = true
         , error
         ;
@@ -117,14 +123,36 @@
       if(!isSuccess) {
         console.error("Error during saving settings.", error);
       }
-      if(showToast) {
-        this.showToast('save',isSuccess)
+      return isSuccess
+    },
+    restoreSection: function(e) {
+      var isSuccess = this.restoreDefaultSome(e.detail.optionNames);
+      this.showToast('restore',isSuccess)
+    },
+    restoreDefaultSome: function(optionNames) {
+      var defaults
+        , someDefaults
+        , getDefaultE
+        ;
+      try {
+        defaults = rallyExtension.config.getDefault();
+      } catch (getDefaultE) {
+      } finally {
+        if(getDefaultE) {
+          console.error("[options] Couldn't retrieve default config.",getDefaultE);
+          return false;
+        } else {
+          someDefaults = _.pick(defaults,optionNames);
+          console.log('[options] Retrieve default options',someDefaults);
+          return this.saveSome(someDefaults,undefined);
+        }
       }
     },
     showToast: function(action,isSuccess) {
       var toast = this.$.toast
         , text = this.toastTexts[action][isSuccess?'success':'error']
         ;
+      toast.hide();
       toast.text = text;
       toast.show();
     },

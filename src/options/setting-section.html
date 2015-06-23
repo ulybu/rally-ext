@@ -35,6 +35,7 @@
         <paper-fab mini
           disabled$="{{notresetable}}"
           style="margin: 0 16px 0 0;"
+          on-tap="fireRestore"
           icon="settings-backup-restore" title="restore"
           tabindex="0" class="restore"></paper-fab>
       </div>
@@ -70,6 +71,9 @@
     },
     fireSave: function() {
       this.fire('save');
+    },
+    fireRestore: function() {
+      this.fire('restore');
     },
     highlight: function(newval) {
       this.$.material.elevation = newval? 4: 1;
