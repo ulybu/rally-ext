@@ -64,24 +64,28 @@
     },
     save: function(e) {
       e.detail.section='copyToClipboard';
-      var isSuccess = true;
+      var isSuccess = true
+        , options = {}
+        ;
+
       try {
-        this.saveNumValue(this.$.refresh.value,'injectionInterval');
-        this.saveNumValue(this.$.fadeaway.value,'checkMarkFadeAwayDelay');
+        this.addNumValue(this.$.refresh.value,'injectionInterval', options);
+        this.addNumValue(this.$.fadeaway.value,'checkMarkFadeAwayDelay', options);
       } catch (saveNumE) {
         e.detail.error = saveNumE;
         isSuccess = false;
+      } finally {
+        e.detail.options = options;
       }
     },
-    saveNumValue: function(val,name) {
+    addNumValue: function(val,name,bag) {
       if(val==='') return;
       var numVal = Number.parseInt(val,10);
       if(isNaN(numVal)) {
         throw "Invalid input. Couldn't be parsed as a number"
         return;
       }
-      var inSec = Math.round(Number.parseInt(val,10)*10)*100;
-      this.conf[name] = Math.round(numVal*10)*100;
+      bag[name] = Math.round(numVal*10)*100;
     },
     doLabels: function(newVal) {
       this.$.refresh.label= "Previous value: "+this.formatToSeconds(newVal.injectionInterval) + " sec";
