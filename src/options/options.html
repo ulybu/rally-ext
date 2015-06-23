@@ -53,7 +53,7 @@
       </paper-toolbar>
       <div class="page">
         <copy-to-clipboard
-          on-save="saveSome"
+          on-save="saveSection"
           conf="{{conf}}"></copy-to-clipboard>
         <setting-section notresetable sectionName="Second Section">
           <div class="settingBox" style = "min-height:100px;">
@@ -92,33 +92,20 @@
         document.addEventListener("rallyExt-configLoaded", whenConfLoaded.bind(this))
       }
     },
-    mergeRecursive: function(obj1,obj2) {
-      for (var p in obj2) {
-        try {
-          // Property in destination object set; update its value.
-          if ( obj2[p].constructor==Object ) {
-            obj1[p] = MergeRecursive(obj1[p], obj2[p]);
-          } else {
-            obj1[p] = obj2[p];
-          }
-        } catch(e) {
-          // Property in destination object not set; create it and set its value.
-          obj1[p] = obj2[p];
-        }
-      }
-      return obj1;
+    saveSection: function(e) {
+      this.saveSome(e.detail.options,e.detail.error,true);
     },
-    saveSome: function(e) {
-      this.mergeRecursive(this.conf, e.detail.options);
-      this.save(e);
+    saveSome: function(some,error,showToast) {
+      _.assign(this.conf, some);
+      this.save(error,showToast);
     },
-    save: function(e) {
+    save: function(inError,showToast) {
       var isSuccess = true
         , error
         ;
-      if(e.detail.error) {
+      if(inError) {
         isSuccess = false;
-        error = e.detail.error;
+        error = inError;
       } else {
         try {
           rallyExtension.config.set(this.conf);
@@ -130,7 +117,9 @@
       if(!isSuccess) {
         console.error("Error during saving settings.", error);
       }
-      this.showToast('save',isSuccess)
+      if(showToast) {
+        this.showToast('save',isSuccess)
+      }
     },
     showToast: function(action,isSuccess) {
       var toast = this.$.toast
