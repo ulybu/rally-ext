@@ -2,39 +2,49 @@
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <dom-module id="copy-to-clipboard">
   <style>
-    .refresh {
-      max-width: 200px
+    :host {
+      --paper-input-container-focus-color: var(--hp-blue);
     }
     .settingBox {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
     .description {
       font-size: 14px;
-      padding: 12px 10px 10px 20px;
+      padding: 12px 10px 10px 0px;
+    }
+    .settingBox > h2 {
+      color: #444;
+      margin-bottom: 0;
+    }
+    .settingBox > paper-input {
+      padding-top: 0;
+      max-width: 200px
     }
   </style>
   <template>
     <setting-section id="section" notresetable sectionname="Copy To Clipboard"
       on-save="save">
-      <div class="settingBox layout horizontal">
-        <paper-input id="refresh" class="refresh"
+      <div class="settingBox">
+        <h2>Icons refresh frenquency</h2>
+        <paper-input id="refresh"
           label=""
           type="number"
-          value="{{formatToSeconds(conf.injectionInterval)}}"></paper-input>
-          <div class="flex description">
-            The frequency the extension will look for links
-             and add the copy-to-clipboard icon next to it.<br/>
-            With a smaller value, the icons will appear quicker but it can affect performance (not measured)
-          </div>
+          value=""></paper-input>
+        <div class="description">
+          The frequency the extension will look for links
+           and add the copy-to-clipboard icon ( <span class="octicon-clippy octicon"></span> ) ext to it.<br/>
+          With a smaller value, the icons will appear quicker but it can affect performance (not measured)
+        </div>
       </div>
-      <div class="settingBox layout horizontal">
-        <paper-input id="fadeaway" class="refresh"
+      <div class="settingBox">
+        <h2>Check mark fadeout delay</h2>
+        <paper-input id="fadeaway"
           label=""
           type="number"
-          value="{{formatToSeconds(conf.checkMarkFadeAwayDelay)}}"></paper-input>
-          <div class="flex description">
-            The time needed for the check mark to dissapear after the icon has been clicked.
-          </div>
+          value=""></paper-input>
+        <div class="description">
+          The time needed for the check mark ( <span style="color:rgb(58, 135, 79);" class='octicon octicon-check'></span> ) to dissapear after the icon has been clicked.
+        </div>
       </div>
     </setting-section>
 </template>
@@ -53,20 +63,24 @@
       return Math.round(val/100)/10;
     },
     save: function(e) {
-      e.detail.section="copyToClipboard";
-      var injectionInt = Math.round(Number.parseInt(this.$.refresh.value,10)*10)*100
-        , fadedelay = Math.round(Number.parseInt(this.$.fadeaway.value,10)*10)*100
-        ;
-      this.conf.injectionInterval = injectionInt;
-      this.conf.checkMarkFadeAwayDelay = fadedelay;
+      e.detail.section='copyToClipboard';
+      this.saveNumValue(this.$.refresh.value,'injectionInterval');
+      this.saveNumValue(this.$.fadeaway.value,'checkMarkFadeAwayDelay');
     },
-
+    saveNumValue: function(val,name) {
+      var numVal = Number.parseInt(val,10);
+      if(isNaN(numVal)) return;
+      var inSec = Math.round(Number.parseInt(val,10)*10)*100;
+      this.conf[name] = Math.round(numVal*10)*100;
+    },
     doLabels: function(newVal) {
       this.$.refresh.label= "Previous value: "+this.formatToSeconds(newVal.injectionInterval) + " sec";
       this.$.fadeaway.label= "Previous value: "+this.formatToSeconds(newVal.checkMarkFadeAwayDelay) + " sec";
     },
     // Element Lifecycle
     ready: function() {
+      this.$.refresh.inputElement.setAttribute('min',"0")
+      this.$.fadeaway.inputElement.setAttribute('min',"0")
     },
     highlightSection: function(toggle) {
       return function() {
@@ -74,12 +88,10 @@
       }
     },
     attached: function() {
-      var focusers = Polymer.dom(this).querySelectorAll('.focuser')
-        ;
-      this.$.refresh.$.input.addEventListener('focus',this.highlightSection(true).bind(this))
-      this.$.refresh.$.input.addEventListener('blur',this.highlightSection(false).bind(this))
-      this.$.fadeaway.$.input.addEventListener('focus',this.highlightSection(true).bind(this))
-      this.$.fadeaway.$.input.addEventListener('blur',this.highlightSection(false).bind(this))
+      this.$.refresh.inputElement.addEventListener('focus',this.highlightSection(true).bind(this));
+      this.$.refresh.inputElement.addEventListener('blur',this.highlightSection(false).bind(this));
+      this.$.fadeaway.inputElement.addEventListener('focus',this.highlightSection(true).bind(this));
+      this.$.fadeaway.inputElement.addEventListener('blur',this.highlightSection(false).bind(this));
     },
     detached: function() {
     },
