@@ -25,6 +25,10 @@
     --hp-blue-dark: #0775A5;
     --paper-toolbar-background: var(--hp-blue);
   }
+  .tall .title {
+    font-size : 40px;
+    line-height: 48px;
+  }
   .page {
     padding: 48px 62px;
   }
@@ -34,9 +38,9 @@
   </style>
 
   <template>
-    <paper-header-panel class="flex">
+    <paper-header-panel mode="waterfall-tall" class="flex">
       <paper-toolbar>
-        <span class="title">Rally Extension</span>
+        <span class="title middle">Rally Extension - Options</span>
         <div class="flex"></div>
         <paper-button >
           <a target="_blank" href="https://github.com/ulybu/rally-ext">
