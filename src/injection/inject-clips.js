@@ -38,23 +38,39 @@ window.rallyExtension.uly = {
     tempNode.classList.add('octicon');
     return tempNode;
   },
-  doubleClickHandler : function(e) {
+  handler: function(e) {
     e.stopPropagation();
     var icon = e.target
-      , url = icon.parentElement.querySelector('.formatted-id-link').textContent.trim()
-      , succeeded = this.copyToClipb(url)
-      , whichIcon = succeeded ? 'octicon-checklist' : 'octicon-x'
+      , link = icon.parentElement.querySelector('.formatted-id-link')
+      , key = link.textContent.trim()
+      , url = link.href
+      , isDoubleClick = (e.type==='dblclick')
+      , infos = {
+          key: key,
+          url: url,
+          isDoubleClick: isDoubleClick
+      }
+      , clickHandler = this[this.userConf.simpleClickAction+'Action'].bind(this)
+      , doubleClickHandler = this[this.userConf.doubleClickAction+'Action'].bind(this)
+      ;
+    if(isDoubleClick) {
+      doubleClickHandler(icon,infos);
+    } else {
+      clickHandler(icon,infos);
+    }
+  },
+  templateAction: function(icon,text,isDoubleClick) {
+    var succeeded = this.copyToClipb(text)
+      , successIcon = isDoubleClick ? 'octicon-checklist': 'octicon-check'
+      , whichIcon = succeeded ? successIcon : 'octicon-x'
       ;
     this.displayFeedbackIcon(icon, whichIcon);
   },
-  clickHandler : function(e) {
-    e.stopPropagation();
-    var icon = e.target
-      , url = icon.parentElement.querySelector('.formatted-id-link').href
-      , succeeded = this.copyToClipb(url)
-      , whichIcon = succeeded ? 'octicon-check' : 'octicon-x'
-      ;
-    this.displayFeedbackIcon(icon, whichIcon);
+  urlAction: function(icon,infos){
+    this.templateAction(icon,infos.url,infos.isDoubleClick)
+  },
+  keyAction: function(icon,infos){
+    this.templateAction(icon,infos.key,infos.isDoubleClick)
   },
   displayFeedbackIcon : function(icon, className) {
     icon.classList.add(className);
@@ -94,8 +110,8 @@ window.rallyExtension.uly = {
     for (var i=0, link, iconElem; (link=links[i]); i++) {
       link.classList.add(injectedClass);
       iconElem = this.iconTemplate.cloneNode();
-      iconElem.addEventListener('click', this.clickHandler.bind(this));
-      iconElem.addEventListener('dblclick', this.doubleClickHandler.bind(this));
+      iconElem.addEventListener('click', this.handler.bind(this));
+      iconElem.addEventListener('dblclick', this.handler.bind(this));
       link.parentElement.appendChild(iconElem);
     }
   },

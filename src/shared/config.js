@@ -2,7 +2,9 @@ window.rallyExtension = window.rallyExtension || {};
 window.rallyExtension.config = {
   defaultUserConf: {
     injectionInterval : 4000,
-    checkMarkFadeAwayDelay : 2000
+    checkMarkFadeAwayDelay : 2000,
+    simpleClickAction: 'url',
+    doubleClickAction: 'key'
   },
   confLoaded: false,
   userConf:{},
