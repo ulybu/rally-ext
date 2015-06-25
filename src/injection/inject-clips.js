@@ -5,7 +5,14 @@ window.rallyExtension.uly = {
     iconClass: 'uly-clip-icon',
     farOnTopClass: 'uly-farOnTop',
     fontUrl: '',
-    injectedFlagClass: 'uly-injected'
+    injectedFlagClass: 'uly-injected',
+    linkPatterns: {
+      url: "%url",
+      key: "%key",
+      markdown:"[%key: %headline](%url)",
+      confluence:"[%key: %headline|%url]",
+      simpleHtml: "<a href='%url'>%key: %headline</a>"
+    }
   },
   init : function() {
     this._conf.fontUrl = chrome.extension.getURL('icons/octicons.woff');
@@ -47,20 +54,26 @@ window.rallyExtension.uly = {
       , url = link.href
       , headline = nameCell.textContent.trim()
       , isDoubleClick = (e.type==='dblclick')
+      , action = this.userConf[(isDoubleClick?'double':'simple')+ 'ClickAction']
       , infos = {
           key: key,
           url: url,
           headline: headline,
-          isDoubleClick: isDoubleClick
-      }
-      , clickHandler = this[this.userConf.simpleClickAction+'Action'].bind(this)
-      , doubleClickHandler = this[this.userConf.doubleClickAction+'Action'].bind(this)
+          isDoubleClick: isDoubleClick,
+          action: action
+        }
+      , linkText = this.createLinkText(infos)
       ;
-    if(isDoubleClick) {
-      doubleClickHandler(icon,infos);
-    } else {
-      clickHandler(icon,infos);
-    }
+
+    this.templateAction(icon,linkText,infos.isDoubleClick);
+  },
+  createLinkText: function(infos) {
+    var pattern = this._conf.linkPatterns[infos.action]
+      ;
+    pattern = pattern.replace(/%key/,infos.key);
+    pattern = pattern.replace(/%url/,infos.url);
+    pattern = pattern.replace(/%headline/,infos.headline);
+    return pattern;
   },
   getNextCell: function(link) {
     for(var i=0,parent=link.parentElement; i<3; parent = parent.parentElement, i++) {
@@ -76,12 +89,6 @@ window.rallyExtension.uly = {
       , whichIcon = succeeded ? successIcon : 'octicon-x'
       ;
     this.displayFeedbackIcon(icon, whichIcon);
-  },
-  urlAction: function(icon,infos){
-    this.templateAction(icon,infos.url,infos.isDoubleClick)
-  },
-  keyAction: function(icon,infos){
-    this.templateAction(icon,infos.key,infos.isDoubleClick)
   },
   displayFeedbackIcon : function(icon, className) {
     icon.classList.add(className);
