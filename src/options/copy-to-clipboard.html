@@ -3,6 +3,67 @@
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
 <link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
 <link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html">
+<dom-module id="radio-links">
+  <style>
+    :host {
+      --paper-input-container-focus-color: var(--hp-blue);
+      --default-primary-color: var(--hp-blue);
+      display: block;
+    }
+    .hp-blue {
+      color: var(--hp-blue);
+    }
+    .marginBottomZero {margin-bottom: 0}
+    .radio-option {
+      font-size: 16px;
+      margin-right: 15px;
+      color: #444;
+    }
+    paper-radio-button {
+      display: block;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    code {
+      font-size: 12px
+    }
+  </style>
+  <template>
+    <paper-radio-group selected="{{valueSel}}">
+      <paper-radio-button id="url" name="url" label="Small">
+        <span class="radio-option">Url</span>
+        <code>https://xxx.rallydev.com/path/to/task</code>
+      </paper-radio-button>
+      <paper-radio-button id="key" name="key" label="Medium">
+        <span class="radio-option">Key</span>
+        <code>US12345</code> or <code>FE123</code> or <code>TA1234</code> or <code>DE1234</code>
+      </paper-radio-button>
+      <paper-radio-button id="markdown" name="markdown" label="Large">
+        <span class="radio-option">Markdown</span>
+        <code>[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)</code>
+      </paper-radio-button>
+      <paper-radio-button id="confluence" name="confluence" label="Large">
+        <span class="radio-option">Confluence</span>
+        <code>[FE123: something good somewhere | https://xxx.rallydev.com/path/to/task]</code>
+      </paper-radio-button>
+      <paper-radio-button class="layout horizontal"id="simpleHtml" name="simpleHtml" label="Large">
+        <span class="radio-option">Simple HTML</span>
+        <code>&lt;a href="https://xxx.rallydev.com/path/to/task"&gt;FE123: something good somewhere&lt;/a&gt;</code>
+      </paper-radio-button>
+    </paper-radio-group>
+  </template>
+</dom-module>
+<script>Polymer({
+  is: "radio-links",
+  properties : {
+    valueSel: {
+      type:String,
+      notify: true,
+      reflectToAttribute:true,
+      value:''
+    }
+  }
+  })</script>
 <dom-module id="copy-to-clipboard">
   <style>
     :host {
@@ -58,35 +119,21 @@
       </setting-one>
       <setting-one>
         <h2>Simple click handler</h2>
-        <paper-radio-group selected="url">
-          <paper-radio-button id="url" name="url" label="Small">
-            <span class="radio-option">Url</span>
-            <code>https://xxx.rallydev.com/path/to/task</code>
-          </paper-radio-button>
-          <paper-radio-button id="key" name="key" label="Medium">
-            <span class="radio-option">Key</span>
-            <code>US12345</code> or <code>FE123</code> or <code>TA1234</code> or <code>DE1234</code>
-          </paper-radio-button>
-          <paper-radio-button id="markdown" name="markdown" label="Large">
-            <span class="radio-option">Markdown</span>
-            <code>[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)</code>
-          </paper-radio-button>
-          <paper-radio-button id="confluence" name="confluence" label="Large">
-            <span class="radio-option">Confluence</span>
-            <code>[FE123: something good somewhere | https://xxx.rallydev.com/path/to/task]</code>
-          </paper-radio-button>
-          <paper-radio-button class="layout horizontal"id="simpleHtml" name="simpleHtml" label="Large">
-            <span class="radio-option">Simple HTML</span>
-            <code>&lt;a href="https://xxx.rallydev.com/path/to/task"&gt;FE123: something good somewhere&lt;/a&gt;</code>
-          </paper-radio-button>
-        </paper-radio-group>
+        <radio-links></radio-links>
         <div class="description">
-          The type of link copied in the clipboard when performing a <span class="hp-blue"><b>simple click</b></span>.
+          The type of link copied in the clipboard when performing a <span class="hp-blue"><b>simple</b></span> click.
+        </div>
+      </setting-one>
+      <setting-one>
+        <h2>Double click handler</h2>
+        <radio-links></radio-links>
+        <div class="description">
+          The type of link copied in the clipboard when performing a <span class="hp-blue"><b>double</b></span> click.
         </div>
       </setting-one>
     </setting-section>
 </template>
-</dom>
+</dom-module>
 <script>
   Polymer({
     is: 'copy-to-clipboard',
