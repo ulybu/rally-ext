@@ -42,12 +42,15 @@ window.rallyExtension.uly = {
     e.stopPropagation();
     var icon = e.target
       , link = icon.parentElement.querySelector('.formatted-id-link')
+      , nameCell = this.getNextCell(link)
       , key = link.textContent.trim()
       , url = link.href
+      , headline = nameCell.textContent.trim()
       , isDoubleClick = (e.type==='dblclick')
       , infos = {
           key: key,
           url: url,
+          headline: headline,
           isDoubleClick: isDoubleClick
       }
       , clickHandler = this[this.userConf.simpleClickAction+'Action'].bind(this)
@@ -58,6 +61,14 @@ window.rallyExtension.uly = {
     } else {
       clickHandler(icon,infos);
     }
+  },
+  getNextCell: function(link) {
+    for(var i=0,parent=link.parentElement; i<3; parent = parent.parentElement, i++) {
+      if(parent.tagName === "TD") {
+        return parent.nextSibling;
+      }
+    }
+    return false;
   },
   templateAction: function(icon,text,isDoubleClick) {
     var succeeded = this.copyToClipb(text)
