@@ -1,8 +1,6 @@
-window.uly = {
-  userConf : {
-    injectionInterval : 4000,
-    checkMarkFadeAwayDelay : 2000
-  },
+window.rallyExtension = window.rallyExtension || {};
+window.rallyExtension.uly = {
+  userConf: {},
   _conf : {
     iconClass: 'uly-clip-icon',
     farOnTopClass: 'uly-farOnTop',
@@ -78,10 +76,9 @@ window.uly = {
       var successful = document.execCommand('copy');
       var msg = successful ? 'successful' : 'unsuccessful';
       console.log('Copy US/Task was ' + msg);
-      // console.log("after try");
     } catch(err) {
       succeeded = false;
-      console.log('Oops, unable to copy');
+      console.warn('Oops, unable to copy');
     }
     return succeeded;
   },
@@ -109,6 +106,16 @@ window.uly = {
     clearInterval(this.intervalID);
   }
 };
+(function() {
+  function whenConfLoaded () {
+    rallyExtension.uly.userConf = rallyExtension.config.get();
+    rallyExtension.uly.init();
+    rallyExtension.uly.startInjecting();
+  }
 
-uly.init();
-uly.startInjecting();
+  if(rallyExtension.config.confLoaded){
+    whenConfLoaded();
+  } else {
+    document.addEventListener("rallyExt-configLoaded", whenConfLoaded)
+  }
+})()

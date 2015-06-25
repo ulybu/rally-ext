@@ -13,5 +13,18 @@
     "**/.*",
     "bower_components"
   ],
-  "description": "Add Some goodies to Rally"
+  "description": "Add Some goodies to Rally",
+  "devDependencies": {
+    "polymer": "Polymer/polymer#1.0.2",
+    "paper-input": "polymerElements/paper-input#1.0.3",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout#~1.0.1",
+    "paper-header-panel": "PolymerElements/paper-header-panel#~1.0.2",
+    "paper-toolbar": "PolymerElements/paper-toolbar#~1.0.2",
+    "iron-icons": "PolymerElements/iron-icons#~1.0.2",
+    "paper-button": "PolymerElements/paper-button#~1.0.1",
+    "paper-material": "PolymerElements/paper-material#~1.0.0",
+    "paper-fab": "PolymerElements/paper-fab#~1.0.2",
+    "paper-toast": "polymerElements/paper-toast#~1.0.0",
+    "paper-icon-button": "polymerElements/paper-icon-button#~1.0.2"
+  }
 }

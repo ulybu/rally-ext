@@ -8,10 +8,14 @@
     {
       "matches":["https://*.rallydev.com/*"],
       "css":["icons/octicons.css", "src/injection/theme.css"],
-			"js": ["src/injection/inject-clips.js"]
+			"js": ["src/shared/config.js","src/injection/inject-clips.js"]
     }
+  ],
+  "permissions": [
+    "storage"
   ],
 	"web_accessible_resources": [
 		"icons/*.woff"
-	]
+	],
+  "options_page": "src/options/index.html"
 }

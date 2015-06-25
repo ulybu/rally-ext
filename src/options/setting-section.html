@@ -1,0 +1,89 @@
+<link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<dom-module id="setting-section">
+  <style>
+    paper-material {
+      margin-bottom: 32px;
+      padding: 16px 30px;
+      background-color: #f7f7f7;
+    }
+    h1 {
+      color: #555;
+      text-transform: uppercase;
+    }
+    paper-fab.restore {
+      margin: 0 16px 0 0;
+      --paper-fab-background: var(--paper-orange-500);
+      --paper-fab-keyboard-focus-background: var(--paper-orange-900);
+    }
+    .done {
+      --paper-fab-background: var(--hp-blue);
+      --paper-fab-keyboard-focus-background: var(--hp-blue-dark);
+    }
+    .footer {
+      margin: 15px 8px 10px 0;
+    }
+    .container {
+      margin: 10px 55px 0 0;
+    }
+  </style>
+  <template>
+  <paper-material animated id="material">
+    <div class="layout horizontal">
+      <h1>{{sectionname}}</h1>
+      <div class="flex"></div>
+      <div class="horizontal layout center">
+        <paper-fab mini
+          disabled$="{{notresetable}}"
+          style="margin: 0 16px 0 0;"
+          on-tap="fireRestore"
+          icon="settings-backup-restore" title="restore"
+          tabindex="0" class="restore"></paper-fab>
+      </div>
+    </div>
+    <div class="container">
+      <content></content>
+    </div>
+    <div class="layout horizontal footer">
+      <div class="flex"></div>
+      <paper-fab class="done" icon="done"
+        on-tap="fireSave"
+        title="done" tabindex="0"></paper-fab>
+    </div>
+  </paper-material>
+</template>
+</dom>
+<script>
+  Polymer({
+    is: 'setting-section',
+    properties: {
+      sectionname: {
+        type: String,
+        value: 'Unnamed Section'
+      },
+      notresetable: {
+        type: Boolean,
+        value: false
+      },
+      highlighted: {
+        type: Boolean,
+        observer: 'highlight'
+      }
+    },
+    fireSave: function() {
+      this.fire('save');
+    },
+    fireRestore: function() {
+      this.fire('restore');
+    },
+    highlight: function(newval) {
+      this.$.material.elevation = newval? 4: 1;
+    },
+    // Element Lifecycle
+    ready: function() {
+    },
+    attached: function() {
+    },
+    detached: function() {
+    },
+  });
+</script>

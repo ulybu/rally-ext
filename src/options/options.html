@@ -1,0 +1,166 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-material/paper-material.html">
+<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="setting-section.html">
+<link rel="import" href="copy-to-clipboard.html">
+
+<dom-module id="rally-options">
+
+  <style>
+  a { text-decoration: none; color:white}
+  a:visited { text-decoration: none; }
+  a:hover { text-decoration: none; }
+  a:focus { text-decoration: none; }
+  a:hover, a:active { text-decoration: none; }
+
+  :host {
+    --hp-blue: #0096D6;
+    --hp-blue-dark: #0775A5;
+    --paper-toolbar-background: var(--hp-blue);
+  }
+  .tall .title {
+    font-size : 40px;
+    line-height: 48px;
+  }
+  .page {
+    padding: 48px 62px;
+  }
+  .octicon-logo-github {
+    padding-top: 4px;
+  }
+  </style>
+
+  <template>
+    <paper-header-panel mode="waterfall-tall" class="flex">
+      <paper-toolbar>
+        <span class="title middle">Rally Extension - Options</span>
+        <div class="flex"></div>
+        <paper-button >
+          <a target="_blank" href="https://github.com/ulybu/rally-ext">
+            <span class="octicon octicon-logo-github"></span>
+          </a>
+        </paper-button>
+        <a target="_blank" href="https://github.com/ulybu/rally-ext/issues">
+          <paper-icon-button icon="bug-report"></paper-icon-button>
+        </a>
+      </paper-toolbar>
+      <div class="page">
+        <copy-to-clipboard
+          on-save="saveSection"
+          on-restore="restoreSection"
+          conf="{{conf}}"></copy-to-clipboard>
+        <setting-section notresetable sectionName="Second Section">
+          <div class="settingBox" style = "min-height:100px;">
+            Some settings
+          </div>
+        </setting-section>
+      </div>
+      <paper-toast id="toast" duration="7000"></paper-toast>
+    </paper-header-panel>
+  </template>
+
+</dom-module>
+
+<script>
+  Polymer({
+    is: 'rally-options',
+    properties: {
+      conf:{
+        type:String
+      }
+    },
+    toastTexts: {
+      save : {
+        success: "Your settings have been saved (details in the console)",
+        error: "Error while saving settings. May be some more info in the console"
+      },
+      restore : {
+        success: "Default settings have been restored. Refresh the page to see them. (details in the console)",
+        error: "Error while retoring default settings. May be some more info in the console"
+      }
+    },
+    created: function() {
+      function whenConfLoaded () {
+        this.conf = rallyExtension.config.get();
+      }
+
+      if(rallyExtension.config.confLoaded){
+        whenConfLoaded();
+      } else {
+        document.addEventListener("rallyExt-configLoaded", whenConfLoaded.bind(this))
+      }
+    },
+    saveSection: function(e) {
+      var isSuccess = this.saveSome(e.detail.options,e.detail.error,this);
+      this.showToast('save',isSuccess)
+    },
+    saveSome: function(some,error) {
+      _.assign(this.conf, some);
+      return this.save(error);
+    },
+    save: function(inError) {
+      var isSuccess = true
+        , error
+        ;
+      if(inError) {
+        isSuccess = false;
+        error = inError;
+      } else {
+        try {
+          rallyExtension.config.set(this.conf);
+        } catch (storageSaveE) {
+          isSuccess = false;
+          error = storageSaveE;
+        }
+      }
+      if(!isSuccess) {
+        console.error("Error during saving settings.", error);
+      }
+      return isSuccess
+    },
+    restoreSection: function(e) {
+      var isSuccess = this.restoreDefaultSome(e.detail.optionNames);
+      this.showToast('restore',isSuccess)
+    },
+    restoreDefaultSome: function(optionNames) {
+      var defaults
+        , someDefaults
+        , getDefaultE
+        ;
+      try {
+        defaults = rallyExtension.config.getDefault();
+      } catch (getDefaultE) {
+      } finally {
+        if(getDefaultE) {
+          console.error("[options] Couldn't retrieve default config.",getDefaultE);
+          return false;
+        } else {
+          someDefaults = _.pick(defaults,optionNames);
+          console.log('[options] Retrieve default options',someDefaults);
+          return this.saveSome(someDefaults,undefined);
+        }
+      }
+    },
+    showToast: function(action,isSuccess) {
+      var toast = this.$.toast
+        , text = this.toastTexts[action][isSuccess?'success':'error']
+        ;
+      toast.hide();
+      toast.text = text;
+      toast.show();
+    },
+    ready: function() {
+    },
+    attached: function() {
+    },
+    detached: function() {
+    },
+  });
+</script>
