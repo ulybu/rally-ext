@@ -1,31 +1,41 @@
 <link rel="import" href="setting-section.html">
+<link rel="import" href="setting-one.html">
 <link rel="import" href="../../bower_components/paper-fab/paper-fab.html">
+<link rel="import" href="../../bower_components/paper-radio-group/paper-radio-group.html">
+<link rel="import" href="../../bower_components/paper-radio-button/paper-radio-button.html">
 <dom-module id="copy-to-clipboard">
   <style>
     :host {
       --paper-input-container-focus-color: var(--hp-blue);
+      --default-primary-color: var(--hp-blue);
     }
-    .settingBox {
-      margin-bottom: 20px;
+    .hp-blue {
+      color: var(--hp-blue);
     }
-    .description {
-      font-size: 14px;
-      padding: 12px 10px 10px 0px;
-    }
-    .settingBox > h2 {
-      color: #444;
-      margin-bottom: 0;
-    }
-    .settingBox > paper-input {
+    setting-one > paper-input {
       padding-top: 0;
       max-width: 200px
+    }
+    .marginBottomZero {margin-bottom: 0}
+    .radio-option {
+      font-size: 16px;
+      margin-right: 15px;
+      color: #444;
+    }
+    paper-radio-button {
+      display: block;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    code {
+      font-size: 12px
     }
   </style>
   <template>
     <setting-section id="section" sectionname="Copy To Clipboard"
       on-save="save" on-restore="restore">
-      <div class="settingBox">
-        <h2>Icons refresh frenquency</h2>
+      <setting-one>
+        <h2 class="marginBottomZero">Icons refresh frenquency</h2>
         <paper-input id="refresh"
           label=""
           type="number"
@@ -35,9 +45,9 @@
            and add the copy-to-clipboard icon ( <span class="octicon-clippy octicon"></span> ) ext to it.<br/>
           With a smaller value, the icons will appear quicker but it can affect performance (not measured)
         </div>
-      </div>
-      <div class="settingBox">
-        <h2>Check mark fadeout delay</h2>
+      </setting-one>
+      <setting-one>
+        <h2 class="marginBottomZero">Check mark fadeout delay</h2>
         <paper-input id="fadeaway"
           label=""
           type="number"
@@ -45,7 +55,35 @@
         <div class="description">
           The time needed for the check mark ( <span style="color:rgb(58, 135, 79);" class='octicon octicon-check'></span> ) to dissapear after the icon has been clicked.
         </div>
-      </div>
+      </setting-one>
+      <setting-one>
+        <h2>Simple click handler</h2>
+        <paper-radio-group selected="url">
+          <paper-radio-button id="url" name="url" label="Small">
+            <span class="radio-option">Url</span>
+            <code>https://xxx.rallydev.com/path/to/task</code>
+          </paper-radio-button>
+          <paper-radio-button id="key" name="key" label="Medium">
+            <span class="radio-option">Key</span>
+            <code>US12345</code> or <code>FE123</code> or <code>TA1234</code> or <code>DE1234</code>
+          </paper-radio-button>
+          <paper-radio-button id="markdown" name="markdown" label="Large">
+            <span class="radio-option">Markdown</span>
+            <code>[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)</code>
+          </paper-radio-button>
+          <paper-radio-button id="confluence" name="confluence" label="Large">
+            <span class="radio-option">Confluence</span>
+            <code>[FE123: something good somewhere | https://xxx.rallydev.com/path/to/task]</code>
+          </paper-radio-button>
+          <paper-radio-button class="layout horizontal"id="simpleHtml" name="simpleHtml" label="Large">
+            <span class="radio-option">Simple HTML</span>
+            <code>&lt;a href="https://xxx.rallydev.com/path/to/task"&gt;FE123: something good somewhere&lt;/a&gt;</code>
+          </paper-radio-button>
+        </paper-radio-group>
+        <div class="description">
+          The type of link copied in the clipboard when performing a <span class="hp-blue"><b>simple click</b></span>.
+        </div>
+      </setting-one>
     </setting-section>
 </template>
 </dom>
