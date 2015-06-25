@@ -62,7 +62,9 @@
           </div>
         </setting-section>
       </div>
-      <paper-toast id="toast" duration="7000"></paper-toast>
+      <paper-toast id="toast" duration="7000">
+        <span id="yellotoast" style="color:#eeff41;margin-left:5px;">Refresh the page to see them</span>
+      </paper-toast>
     </paper-header-panel>
   </template>
 
@@ -82,7 +84,7 @@
         error: "Error while saving settings. May be some more info in the console"
       },
       restore : {
-        success: "Default settings have been restored. Refresh the page to see them. (details in the console)",
+        success: "Default settings have been restored (details in the console). ",
         error: "Error while retoring default settings. May be some more info in the console"
       }
     },
@@ -154,6 +156,8 @@
         ;
       toast.hide();
       toast.text = text;
+      //@TODO ugly
+      this.$.yellotoast.style.display= (action==='restore' && isSuccess)?"inline-block":'none'
       toast.show();
     },
     ready: function() {

@@ -123,14 +123,16 @@
       </setting-one>
       <setting-one>
         <h2>Simple click handler</h2>
-        <radio-links></radio-links>
+        <radio-links id='simple'
+          value-sel="[[conf.simpleClickAction]]"></radio-links>
         <div class="description">
           The type of link copied in the clipboard when performing a <span class="hp-blue"><b>simple</b></span> click.
         </div>
       </setting-one>
       <setting-one>
         <h2>Double click handler</h2>
-        <radio-links></radio-links>
+        <radio-links id='double'
+          value-sel="[[conf.doubleClickAction]]"></radio-links>
         <div class="description">
           The type of link copied in the clipboard when performing a <span class="hp-blue"><b>double</b></span> click.
         </div>
@@ -149,7 +151,7 @@
       },
       optionNames: {
         type: Array,
-        value : [ 'injectionInterval', 'checkMarkFadeAwayDelay']
+        value : [ 'injectionInterval', 'checkMarkFadeAwayDelay','simpleClickAction','doubleClickAction']
       }
     },
     formatToSeconds: function(val) {
@@ -167,12 +169,21 @@
       try {
         this.addNumValue(this.$.refresh.value,'injectionInterval', options);
         this.addNumValue(this.$.fadeaway.value,'checkMarkFadeAwayDelay', options);
+        this.addLinkValue(this.$.simple.valueSel,'simpleClickAction', options);
+        this.addLinkValue(this.$.double.valueSel,'doubleClickAction', options);
       } catch (saveNumE) {
         e.detail.error = saveNumE;
         isSuccess = false;
       } finally {
         e.detail.options = options;
       }
+    },
+    addLinkValue: function(val,name,bag) {
+      var initValue = this.conf[name]
+        , hasChanged = initValue !== val
+        ;
+
+      return hasChanged ? (bag[name] = val, true) : false ;
     },
     addNumValue: function(val,name,bag) {
       if(val==='') return;
@@ -187,7 +198,6 @@
       this.$.refresh.label= "Previous value: "+this.formatToSeconds(newVal.injectionInterval) + " sec";
       this.$.fadeaway.label= "Previous value: "+this.formatToSeconds(newVal.checkMarkFadeAwayDelay) + " sec";
     },
-    // Element Lifecycle
     ready: function() {
       this.$.refresh.inputElement.setAttribute('min',"0")
       this.$.fadeaway.inputElement.setAttribute('min',"0")
