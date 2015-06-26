@@ -47,25 +47,34 @@ window.rallyExtension.uly = {
   },
   handler: function(e) {
     e.stopPropagation();
-    var icon = e.target
-      , link = icon.parentElement.querySelector('.formatted-id-link')
-      , nameCell = this.getNextCell(link)
-      , key = link.textContent.trim()
-      , url = link.href
-      , headline = nameCell.textContent.trim()
-      , isDoubleClick = (e.type==='dblclick')
-      , action = this.userConf[(isDoubleClick?'double':'simple')+ 'ClickAction']
-      , infos = {
-          key: key,
-          url: url,
-          headline: headline,
-          isDoubleClick: isDoubleClick,
-          action: action
-        }
-      , linkText = this.createLinkText(infos)
+    var iconNode, linkNode, nameCellNode
+      , key, url, headline
+      , isDoubleClick
+      , action
+      , infos = {}
+      , linkText
       ;
+    // Retrieve Elements
+    iconNode = e.target  
+    linkNode = iconNode.parentElement.querySelector('.formatted-id-link')
+    nameCellNode = this.getNextCell(linkNode)
+    // Extract text
+    key = linkNode.textContent.trim()
+    url = linkNode.href
+    headline = nameCellNode.textContent.trim()
+    
+    isDoubleClick = (e.type==='dblclick')
+    action = this.userConf[(isDoubleClick?'double':'simple')+ 'ClickAction']
+    infos = {
+      key: key,
+      url: url,
+      headline: headline,
+      isDoubleClick: isDoubleClick,
+      action: action
+    }
+    linkText = this.createLinkText(infos)
 
-    this.templateAction(icon,linkText,infos.isDoubleClick);
+    this.templateAction(iconNode,linkText,infos.isDoubleClick);
   },
   createLinkText: function(infos) {
     var pattern = this._conf.linkPatterns[infos.action]
@@ -76,7 +85,7 @@ window.rallyExtension.uly = {
     return pattern;
   },
   getNextCell: function(link) {
-    for(var i=0,parent=link.parentElement; i<3; parent = parent.parentElement, i++) {
+    for(var i=0,parent=link.parentElement; i<4; parent = parent.parentElement, i++) {
       if(parent.tagName === "TD") {
         return parent.nextSibling;
       }
