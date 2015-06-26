@@ -5,7 +5,14 @@ window.rallyExtension.uly = {
     iconClass: 'uly-clip-icon',
     farOnTopClass: 'uly-farOnTop',
     fontUrl: '',
-    injectedFlagClass: 'uly-injected'
+    injectedFlagClass: 'uly-injected',
+    linkPatterns: {
+      url: "%url",
+      key: "%key",
+      markdown:"[%key: %headline](%url)",
+      confluence:"[%key: %headline|%url]",
+      simpleHtml: "<a href='%url'>%key: %headline</a>"
+    }
   },
   init : function() {
     this._conf.fontUrl = chrome.extension.getURL('icons/octicons.woff');
@@ -38,21 +45,48 @@ window.rallyExtension.uly = {
     tempNode.classList.add('octicon');
     return tempNode;
   },
-  doubleClickHandler : function(e) {
+  handler: function(e) {
     e.stopPropagation();
     var icon = e.target
-      , url = icon.parentElement.querySelector('.formatted-id-link').textContent.trim()
-      , succeeded = this.copyToClipb(url)
-      , whichIcon = succeeded ? 'octicon-checklist' : 'octicon-x'
+      , link = icon.parentElement.querySelector('.formatted-id-link')
+      , nameCell = this.getNextCell(link)
+      , key = link.textContent.trim()
+      , url = link.href
+      , headline = nameCell.textContent.trim()
+      , isDoubleClick = (e.type==='dblclick')
+      , action = this.userConf[(isDoubleClick?'double':'simple')+ 'ClickAction']
+      , infos = {
+          key: key,
+          url: url,
+          headline: headline,
+          isDoubleClick: isDoubleClick,
+          action: action
+        }
+      , linkText = this.createLinkText(infos)
       ;
-    this.displayFeedbackIcon(icon, whichIcon);
+
+    this.templateAction(icon,linkText,infos.isDoubleClick);
   },
-  clickHandler : function(e) {
-    e.stopPropagation();
-    var icon = e.target
-      , url = icon.parentElement.querySelector('.formatted-id-link').href
-      , succeeded = this.copyToClipb(url)
-      , whichIcon = succeeded ? 'octicon-check' : 'octicon-x'
+  createLinkText: function(infos) {
+    var pattern = this._conf.linkPatterns[infos.action]
+      ;
+    pattern = pattern.replace(/%key/,infos.key);
+    pattern = pattern.replace(/%url/,infos.url);
+    pattern = pattern.replace(/%headline/,infos.headline);
+    return pattern;
+  },
+  getNextCell: function(link) {
+    for(var i=0,parent=link.parentElement; i<3; parent = parent.parentElement, i++) {
+      if(parent.tagName === "TD") {
+        return parent.nextSibling;
+      }
+    }
+    return false;
+  },
+  templateAction: function(icon,text,isDoubleClick) {
+    var succeeded = this.copyToClipb(text)
+      , successIcon = isDoubleClick ? 'octicon-checklist': 'octicon-check'
+      , whichIcon = succeeded ? successIcon : 'octicon-x'
       ;
     this.displayFeedbackIcon(icon, whichIcon);
   },
@@ -94,8 +128,8 @@ window.rallyExtension.uly = {
     for (var i=0, link, iconElem; (link=links[i]); i++) {
       link.classList.add(injectedClass);
       iconElem = this.iconTemplate.cloneNode();
-      iconElem.addEventListener('click', this.clickHandler.bind(this));
-      iconElem.addEventListener('dblclick', this.doubleClickHandler.bind(this));
+      iconElem.addEventListener('click', this.handler.bind(this));
+      iconElem.addEventListener('dblclick', this.handler.bind(this));
       link.parentElement.appendChild(iconElem);
     }
   },

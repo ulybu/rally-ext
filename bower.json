@@ -25,6 +25,8 @@
     "paper-material": "PolymerElements/paper-material#~1.0.0",
     "paper-fab": "PolymerElements/paper-fab#~1.0.2",
     "paper-toast": "polymerElements/paper-toast#~1.0.0",
-    "paper-icon-button": "polymerElements/paper-icon-button#~1.0.2"
+    "paper-icon-button": "polymerElements/paper-icon-button#~1.0.2",
+    "paper-radio-group": "polymerElements/paper-radio-group#~1.0.3",
+    "paper-radio-button": "polymerElements/paper-radio-button#~1.0.3"
   }
 }

@@ -35,6 +35,11 @@
   .octicon-logo-github {
     padding-top: 4px;
   }
+  .toast-action {
+    color:#eeff41;
+    margin-left:5px;
+    cursor: pointer;
+  }
   </style>
 
   <template>
@@ -56,13 +61,15 @@
           on-save="saveSection"
           on-restore="restoreSection"
           conf="{{conf}}"></copy-to-clipboard>
-        <setting-section notresetable sectionName="Second Section">
+        <!-- <setting-section notresetable sectionName="Second Section">
           <div class="settingBox" style = "min-height:100px;">
             Some settings
           </div>
-        </setting-section>
+        </setting-section> -->
       </div>
-      <paper-toast id="toast" duration="7000"></paper-toast>
+      <paper-toast id="toast" duration="7000">
+        <span class="toast-action" on-tap='reload' id="yellotoast">Refresh the page to see them</span>
+      </paper-toast>
     </paper-header-panel>
   </template>
 
@@ -82,7 +89,7 @@
         error: "Error while saving settings. May be some more info in the console"
       },
       restore : {
-        success: "Default settings have been restored. Refresh the page to see them. (details in the console)",
+        success: "Default settings have been restored (details in the console). ",
         error: "Error while retoring default settings. May be some more info in the console"
       }
     },
@@ -148,12 +155,17 @@
         }
       }
     },
+    reload: function() {
+      location.reload();
+    },
     showToast: function(action,isSuccess) {
       var toast = this.$.toast
         , text = this.toastTexts[action][isSuccess?'success':'error']
         ;
       toast.hide();
       toast.text = text;
+      //@TODO ugly
+      this.$.yellotoast.style.display= (action==='restore' && isSuccess)?"inline-block":'none'
       toast.show();
     },
     ready: function() {
