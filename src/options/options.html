@@ -35,6 +35,11 @@
   .octicon-logo-github {
     padding-top: 4px;
   }
+  .toast-action {
+    color:#eeff41;
+    margin-left:5px;
+    cursor: pointer;
+  }
   </style>
 
   <template>
@@ -63,7 +68,7 @@
         </setting-section> -->
       </div>
       <paper-toast id="toast" duration="7000">
-        <span id="yellotoast" style="color:#eeff41;margin-left:5px;">Refresh the page to see them</span>
+        <span class="toast-action" on-tap='reload' id="yellotoast">Refresh the page to see them</span>
       </paper-toast>
     </paper-header-panel>
   </template>
@@ -149,6 +154,9 @@
           return this.saveSome(someDefaults,undefined);
         }
       }
+    },
+    reload: function() {
+      location.reload();
     },
     showToast: function(action,isSuccess) {
       var toast = this.$.toast
