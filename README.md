@@ -1,7 +1,4 @@
 <style>
-.underline {
-	text-decoration: underline;
-}
 underline {
 	text-decoration: underline;
 }
