@@ -7,8 +7,8 @@
   "content_scripts":[
     {
       "matches":["https://*.rallydev.com/*"],
-      "css":["icons/octicons.css", "src/injection/theme.css"],
-			"js": ["src/shared/config.js","src/injection/inject-clips.js"]
+      "css":["icons/octicons.css", "src/injection/*.css"],
+			"js": ["src/shared/config.js","src/injection/*.js"]
     }
   ],
   "permissions": [
