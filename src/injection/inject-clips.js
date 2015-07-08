@@ -67,10 +67,13 @@ window.rallyExtension.uly = {
     }
   },
   startListeningToLinks: function() {
+    this.stopListeningToLinks();
     this.linkIconIntervalID = setInterval(this.addListenersToLinksIcon.bind(this), 1000);
+    console.log("start interval id #",this.linkIconIntervalID);
   },
   stopListeningToLinks: function() {
     clearInterval(this.linkIconIntervalID);
+    console.log('cleared interval id #',this.linkIconIntervalID);
   },
   addListenersToLinksIcon: function() {
     var links = document.querySelectorAll('.tr-link.tr-icon');
