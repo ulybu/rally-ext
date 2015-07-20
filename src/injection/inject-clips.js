@@ -14,10 +14,14 @@ window.rallyExtension.uly = {
       simpleHtml: "<a href='%url'>%key: %headline</a>"
     }
   },
+  lastInfos: false,
   init : function() {
     this._conf.fontUrl = chrome.extension.getURL('icons/octicons.woff');
 
     this.addFontFace(this._conf.fontUrl);
+    
+    this.listenHash();
+    this.hashChanged();
 
     this.p = document.createElement("p");
     this.p.classList.add(this._conf.farOnTopClass);
@@ -44,6 +48,70 @@ window.rallyExtension.uly = {
     tempNode.classList.add('octicon-clippy');
     tempNode.classList.add('octicon');
     return tempNode;
+  },
+  listenHash: function() {
+    window.addEventListener('hashchange',this.hashChanged.bind(this));
+  },
+  hashChanged: function() {
+    function hasAnEditor() {
+      return !! document.querySelector('iframe.richTextContent.editable');
+    }
+    function isAnEditionPage() {
+      var hash= window.location.hash
+        , reg = /detail\/.*(userstory|task|feature|defect)\/\d*($|\/discussion)/
+      ;
+      return reg.test(hash);
+    }
+    if(hasAnEditor() || isAnEditionPage()) {
+      this.startListeningToLinks()
+    }
+  },
+  startListeningToLinks: function() {
+    this.stopListeningToLinks();
+    this.linkIconIntervalID = setInterval(this.addListenersToLinksIcon.bind(this), 1000);
+    console.log("start interval id #",this.linkIconIntervalID);
+  },
+  stopListeningToLinks: function() {
+    clearInterval(this.linkIconIntervalID);
+    console.log('cleared interval id #',this.linkIconIntervalID);
+  },
+  addListenersToLinksIcon: function() {
+    var links = document.querySelectorAll('.tr-link.tr-icon');
+    if(links.length !== 0) {
+      this.stopListeningToLinks();
+      Array.prototype.forEach.call(links, function(link) {
+        link.addEventListener('click',this.fillAndSetTheLinkDialog.bind(this))
+      },this);
+      console.log("Found "+links.length+" link icons in text editors");
+    }
+  },
+  fillAndSetTheLinkDialog: function() {
+    if(!this.lastInfos) return;
+    var box = document.querySelector('.tr-dialog.non-draggable.rly-modal-dialog')
+      , text = box.querySelector('#linkdialog-text')
+      , url = box.querySelector('#linkdialog-onweb-tab-input')
+      , buttonBox = box.querySelector('.modal-dialog-buttons')
+      , button = buttonBox.querySelector("a:first-child")
+      , cancelButton = buttonBox.querySelector("a:last-child")
+      , injButton = button.cloneNode(true)
+      , innerText = injButton.querySelector('.x4-btn-inner')
+      , innerSpan = button.querySelector('span[role]')
+      , evt = new MouseEvent('click',{bubbles:true});
+    ;
+
+    innerText.textContent = 'Insert '+this.lastInfos.key
+    injButton.classList.remove('x4-btn-disabled');
+    injButton.classList.remove('x4-item-disabled');
+    injButton.classList.remove('x4-disabled');
+    injButton.classList.remove('x4-btn-default-small-disabled');
+    injButton.addEventListener('click',fillFields.bind(this))
+    function fillFields(){
+      url.value = this.lastInfos.url;
+      text.value = this.lastInfos.key;
+      // To trick rally into not cloning the url into the text
+      text.dispatchEvent(new KeyboardEvent("keyup", {bubbles:true}))
+    }
+    buttonBox.insertBefore(injButton,cancelButton);
   },
   handler: function(e) {
     e.stopPropagation();
@@ -72,6 +140,7 @@ window.rallyExtension.uly = {
       isDoubleClick: isDoubleClick,
       action: action
     }
+    this.lastInfos = _.cloneDeep(infos);
     linkText = this.createLinkText(infos)
 
     this.templateAction(iconNode,linkText,infos.isDoubleClick);
