@@ -108,6 +108,8 @@ window.rallyExtension.uly = {
     function fillFields(){
       url.value = this.lastInfos.url;
       text.value = this.lastInfos.key;
+      // To trick rally into not cloning the url into the text
+      text.dispatchEvent(new KeyboardEvent("keyup", {bubbles:true}))
     }
     buttonBox.insertBefore(injButton,cancelButton);
   },
