@@ -15,6 +15,9 @@ window.rallyExtension.uly = {
     }
   },
   lastInfos: false,
+  setLastInfoToStorage: function(infos) {
+    chrome.storage.local.set({lastInfos:infos},function(){});
+  },
   init : function() {
     this._conf.fontUrl = chrome.extension.getURL('icons/octicons.woff');
 
@@ -22,7 +25,7 @@ window.rallyExtension.uly = {
     
     this.listenHash();
     this.hashChanged();
-
+    
     this.p = document.createElement("p");
     this.p.classList.add(this._conf.farOnTopClass);
     document.body.appendChild(this.p); // needs to have a parent
@@ -31,6 +34,12 @@ window.rallyExtension.uly = {
     this.range.selectNode(this.p);
 
     this.iconTemplate = this.makeIconElemTemplate();
+    
+    chrome.storage.onChanged.addListener(function(changes,areaName){
+      if(areaName ==='local' && changes.lastInfos) {
+        this.lastInfos = changes.lastInfos.newValue;
+      }
+    }.bind(this))
   },
   addFontFace : function(fontUrl) {
     var fontFaceStyle = document.createElement('style');
@@ -140,7 +149,7 @@ window.rallyExtension.uly = {
       isDoubleClick: isDoubleClick,
       action: action
     }
-    this.lastInfos = _.cloneDeep(infos);
+    this.setLastInfoToStorage(infos);
     linkText = this.createLinkText(infos)
 
     this.templateAction(iconNode,linkText,infos.isDoubleClick);
