@@ -19,6 +19,8 @@ Suggestions, feature requests or bugs **are welcome** as [issues](https://github
 A _copy-to-clipboard-ish_ icon is added next to every link and will generate and copy a link.
 It can handle a click and a double click so you can at any time copy two different types of link
 
+![clipboard added](https://cloud.githubusercontent.com/assets/2479249/9069200/2ef222b2-3ae8-11e5-8e08-077234092f00.png)
+
 ##### Currently supported links:
 
 * Url - `https://xxx.rallydev.com/path/to/task`
@@ -31,10 +33,14 @@ It can handle a click and a double click so you can at any time copy two differe
 
 Go to [chrome://extensions](chrome://extensions), look for the rally extension and click <underline>`options`</underline>
 
-Modify,save, reload the rally page 
+![link to options](https://cloud.githubusercontent.com/assets/2479249/9069208/36d71640-3ae8-11e5-9e41-68341a7af260.png)
+
+Modify,save and reload the Rally to see the changes 
+
+![option page](https://cloud.githubusercontent.com/assets/2479249/9069305/d5e8344e-3ae8-11e5-811f-f5b0ee1f8580.png)
 
 ## Install (chrome)
-The extension is published on the chrome web store [here](https://chrome.google.com/webstore/detail/rally/gaoglodjegfcmjckjagjhbollbibjjnf/related)
+The extension is published on the chrome web store [**HERE**](https://chrome.google.com/webstore/detail/rally/gaoglodjegfcmjckjagjhbollbibjjnf/related)
 
 Once installed it will automatically receive updates
 
