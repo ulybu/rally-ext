@@ -55,24 +55,24 @@ window.rallyExtension.uly = {
       , linkText
       ;
     // Retrieve Elements
-    iconNode = e.target  
-    linkNode = iconNode.parentElement.querySelector('.formatted-id-link')
-    nameCellNode = this.getNextCell(linkNode)
+    iconNode = e.target;
+    linkNode = iconNode.parentElement.querySelector('.formatted-id-link');
+    nameCellNode = this.getNextCell(linkNode);
     // Extract text
-    key = linkNode.textContent.trim()
-    url = linkNode.href
-    headline = nameCellNode.textContent.trim()
+    key = linkNode.textContent.trim();
+    url = linkNode.href;
+    headline = nameCellNode.textContent.trim();
     
-    isDoubleClick = (e.type==='dblclick')
-    action = this.userConf[(isDoubleClick?'double':'simple')+ 'ClickAction']
+    isDoubleClick = (e.type==='dblclick');
+    action = this.userConf[(isDoubleClick?'double':'simple')+ 'ClickAction'];
     infos = {
       key: key,
       url: url,
       headline: headline,
       isDoubleClick: isDoubleClick,
       action: action
-    }
-    linkText = this.createLinkText(infos)
+    };
+    linkText = this.createLinkText(infos);
 
     this.templateAction(iconNode,linkText,infos.isDoubleClick);
   },
