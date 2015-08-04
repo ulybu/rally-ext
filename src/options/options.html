@@ -97,12 +97,7 @@
       function whenConfLoaded () {
         this.conf = rallyExtension.config.get();
       }
-
-      if(rallyExtension.config.confLoaded){
-        whenConfLoaded();
-      } else {
-        document.addEventListener("rallyExt-configLoaded", whenConfLoaded.bind(this))
-      }
+      rallyExtension.config.initiator(whenConfLoaded.bind(this));
     },
     saveSection: function(e) {
       var isSuccess = this.saveSome(e.detail.options,e.detail.error,this);

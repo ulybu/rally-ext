@@ -34,7 +34,7 @@ gulp.task('rename-wc', ['build-wc'], function() {
 ;
 });
 
-gulp.task('sync-packages', function() {
+gulp.task('sync-package-files', function() {
   return gulp.src(['bower.json', 'package.json'])
     .pipe(sync(syncOptions))
     .pipe(gulp.dest('.'))

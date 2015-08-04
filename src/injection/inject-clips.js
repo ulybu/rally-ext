@@ -132,16 +132,16 @@ window.rallyExtension.uly = {
       , linkText
       ;
     // Retrieve Elements
-    iconNode = e.target  
-    linkNode = iconNode.parentElement.querySelector('.formatted-id-link')
-    nameCellNode = this.getNextCell(linkNode)
+    iconNode = e.target;
+    linkNode = iconNode.parentElement.querySelector('.formatted-id-link');
+    nameCellNode = this.getNextCell(linkNode);
     // Extract text
-    key = linkNode.textContent.trim()
-    url = linkNode.href
-    headline = nameCellNode.textContent.trim()
+    key = linkNode.textContent.trim();
+    url = linkNode.href;
+    headline = nameCellNode.textContent.trim();
     
-    isDoubleClick = (e.type==='dblclick')
-    action = this.userConf[(isDoubleClick?'double':'simple')+ 'ClickAction']
+    isDoubleClick = (e.type==='dblclick');
+    action = this.userConf[(isDoubleClick?'double':'simple')+ 'ClickAction'];
     infos = {
       key: key,
       url: url,
@@ -150,7 +150,7 @@ window.rallyExtension.uly = {
       action: action
     }
     this.setLastInfoToStorage(infos);
-    linkText = this.createLinkText(infos)
+    linkText = this.createLinkText(infos);
 
     this.templateAction(iconNode,linkText,infos.isDoubleClick);
   },
@@ -227,16 +227,12 @@ window.rallyExtension.uly = {
     clearInterval(this.intervalID);
   }
 };
+
 (function() {
   function whenConfLoaded () {
     rallyExtension.uly.userConf = rallyExtension.config.get();
     rallyExtension.uly.init();
     rallyExtension.uly.startInjecting();
   }
-
-  if(rallyExtension.config.confLoaded){
-    whenConfLoaded();
-  } else {
-    document.addEventListener("rallyExt-configLoaded", whenConfLoaded)
-  }
+  rallyExtension.config.initiator(whenConfLoaded.bind(rallyExtension.uly))
 })()
