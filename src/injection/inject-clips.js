@@ -149,16 +149,12 @@ window.rallyExtension.uly = {
     clearInterval(this.intervalID);
   }
 };
+
 (function() {
   function whenConfLoaded () {
     rallyExtension.uly.userConf = rallyExtension.config.get();
     rallyExtension.uly.init();
     rallyExtension.uly.startInjecting();
   }
-
-  if(rallyExtension.config.confLoaded){
-    whenConfLoaded();
-  } else {
-    document.addEventListener("rallyExt-configLoaded", whenConfLoaded)
-  }
+  rallyExtension.config.initiator(whenConfLoaded.bind(rallyExtension.uly))
 })()

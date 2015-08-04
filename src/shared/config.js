@@ -6,6 +6,7 @@ window.rallyExtension.config = {
     simpleClickAction: 'url',
     doubleClickAction: 'key'
   },
+  initQueue: [],
   confLoaded: false,
   userConf:{},
   get: function() {
@@ -24,6 +25,18 @@ window.rallyExtension.config = {
   },
   getDefault: function() {
     return this.defaultUserConf;
+  },
+  initiator: function(cb) {
+    if (this.confLoaded) {
+      cb();
+    } else {
+      this.initQueue.push(cb);
+    }
+  },
+  callCbQueue: function() {
+    for(var i=0, cb; cb = this.initQueue[i]; i++) {
+      cb();
+    }
   },
   initConfig: function() {
     var loadedEvent = new Event('rallyExt-configLoaded')
@@ -59,7 +72,8 @@ window.rallyExtension.config = {
           console.warn("Didn't find any user configuration in sync storage, added default one")
         });
       }
-      document.dispatchEvent(loadedEvent);
+      // Race condition here
+      this.callCbQueue();
       this.confLoaded = true;
     }.bind(this));
   }
