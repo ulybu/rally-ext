@@ -1,14 +1,14 @@
 {
   "manifest_version": 2,
   "name": "rally",
-  "version": "0.4.1",
+  "version": "0.5.1",
   "description":"Add Some goodies to Rally",
 	"author": "ulysse.prygiel@gmail.com",
   "content_scripts":[
     {
       "matches":["https://*.rallydev.com/*"],
       "css":["icons/octicons.css", "src/injection/theme.css"],
-			"js": ["src/shared/config.js","src/injection/inject-clips.js"]
+			"js": ["src/shared/lodash.custom.min.js","src/shared/config.js","src/injection/inject-clips.js"]
     }
   ],
   "permissions": [
