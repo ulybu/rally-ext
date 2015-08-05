@@ -1,7 +1,10 @@
+
 <style>
+
 underline {
 	text-decoration: underline;
 }
+
 </style>
 
 # Rally-ext
@@ -29,6 +32,21 @@ It can handle a click and a double click so you can at any time copy two differe
 * Confluence - `[FE123: something good somewhere|https://xxx.rallydev.com/path/to/task]`
 * Simple HTML - `<a href="https://xxx.rallydev.com/path/to/task">FE123: something good somewhere<a/>`
 
+### Insert last copied link in a Rally text editor
+
+ 1. Click on a copy-to-cipboard icon inserted by rally (see previous feature)
+
+  ![clicked on icon](https://cloud.githubusercontent.com/assets/2479249/9082353/c6925558-3b63-11e5-960a-128202d908bc.png)
+
+ 2. Click the link action button and select the new button that appeared with the name of the last link clicked
+
+![url tool opened](https://cloud.githubusercontent.com/assets/2479249/9082490/ab145ea6-3b64-11e5-9b6e-d35eb8a05640.png)
+
+Then you should have your link inserted 
+
+![link inserted](https://cloud.githubusercontent.com/assets/2479249/9082493/b6df37b0-3b64-11e5-9401-17a5f2b125eb.png)
+
+**Note:** *this works across tabs of the same chrome user session*
 ### Customizable
 
 Go to [chrome://extensions](chrome://extensions), look for the rally extension and click <underline>`options`</underline>
