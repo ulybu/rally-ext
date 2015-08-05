@@ -40,7 +40,7 @@ It can handle a click and a double click so you can at any time copy two differe
 
  2. Click the link action button and select the new button that appeared with the name of the last link clicked
 
-![url tool opened](https://cloud.githubusercontent.com/assets/2479249/9082490/ab145ea6-3b64-11e5-9b6e-d35eb8a05640.png)
+![url tool opened](https://cloud.githubusercontent.com/assets/2479249/9082702/e725fc78-3b65-11e5-92b3-92ec28503b1c.png)
 
 Then you should have your link inserted 
 
