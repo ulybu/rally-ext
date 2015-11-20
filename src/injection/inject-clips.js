@@ -22,10 +22,10 @@ window.rallyExtension.uly = {
     this._conf.fontUrl = chrome.extension.getURL('icons/octicons.woff');
 
     this.addFontFace(this._conf.fontUrl);
-    
+
     this.listenHash();
     this.hashChanged();
-    
+
     this.p = document.createElement("p");
     this.p.classList.add(this._conf.farOnTopClass);
     document.body.appendChild(this.p); // needs to have a parent
@@ -34,7 +34,7 @@ window.rallyExtension.uly = {
     this.range.selectNode(this.p);
 
     this.iconTemplate = this.makeIconElemTemplate();
-    
+
     chrome.storage.onChanged.addListener(function(changes,areaName){
       if(areaName ==='local' && changes.lastInfos) {
         this.lastInfos = changes.lastInfos.newValue;
@@ -134,12 +134,12 @@ window.rallyExtension.uly = {
     // Retrieve Elements
     iconNode = e.target;
     linkNode = iconNode.parentElement.querySelector('.formatted-id-link');
-    nameCellNode = this.getNextCell(linkNode);
+    nameCellNode = this.getHeadlineElem(linkNode);
     // Extract text
     key = linkNode.textContent.trim();
     url = linkNode.href;
     headline = nameCellNode.textContent.trim();
-    
+
     isDoubleClick = (e.type==='dblclick');
     action = this.userConf[(isDoubleClick?'double':'simple')+ 'ClickAction'];
     infos = {
@@ -162,7 +162,18 @@ window.rallyExtension.uly = {
     pattern = pattern.replace(/%headline/,infos.headline);
     return pattern;
   },
-  getNextCell: function(link) {
+  getHeadlineElem: function(link) {
+    return this.getHeadlineGrid(link) || this.getHeadlineTable(link);
+  },
+  getHeadlineGrid: function(link) {
+    for(var i=0,parent=link.parentElement; i<4; parent = parent.parentElement, i++) {
+      if(parent.classList.contains("left-header")) {
+        return parent.nextElementSibling;
+      }
+    }
+    return false;
+  },
+  getHeadlineTable: function(link) {
     for(var i=0,parent=link.parentElement; i<4; parent = parent.parentElement, i++) {
       if(parent.tagName === "TD") {
         return parent.nextSibling;
