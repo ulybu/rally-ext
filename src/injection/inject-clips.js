@@ -26,12 +26,9 @@ window.rallyExtension.uly = {
     this.listenHash();
     this.hashChanged();
 
-    this.p = document.createElement("p");
+    this.p = document.createElement("input");
     this.p.classList.add(this._conf.farOnTopClass);
     document.body.appendChild(this.p); // needs to have a parent
-    // Dummy range to use as a text buffer (also)
-    this.range = document.createRange();
-    this.range.selectNode(this.p);
 
     this.iconTemplate = this.makeIconElemTemplate();
 
@@ -200,8 +197,9 @@ window.rallyExtension.uly = {
     // get the text from the sibling link
     var succeeded = true
       ;
-    this.p.textContent = text;
-    window.getSelection().addRange(this.range);
+    this.p.value = text;
+    this.p.select();
+    this.p.focus();
 
     try {
       // Now that we've selected the url, execute the copy command
@@ -211,6 +209,9 @@ window.rallyExtension.uly = {
     } catch(err) {
       succeeded = false;
       console.warn('Oops, unable to copy');
+    } finally {
+      this.p.value = '';
+      this.p.blur();
     }
     return succeeded;
   },
