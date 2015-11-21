@@ -1,6 +1,6 @@
 {
   "name": "rally",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "description": "Add Some goodies to Rally",
   "main": "inject-clips.js",
   "devDependencies": {
