@@ -26,6 +26,7 @@ window.rallyExtension.uly = {
     this.listenHash();
     this.hashChanged();
 
+    this.range = document.createRange();
     this.p = document.createElement("input");
     this.p.classList.add(this._conf.farOnTopClass);
     document.body.appendChild(this.p); // needs to have a parent
@@ -149,7 +150,12 @@ window.rallyExtension.uly = {
     this.setLastInfoToStorage(infos);
     linkText = this.createLinkText(infos);
 
-    this.templateAction(iconNode,linkText,infos.isDoubleClick);
+    this.templateAction(
+      {
+        icon:iconNode,
+        link:linkNode
+      },
+      linkText,infos);
   },
   createLinkText: function(infos) {
     var pattern = this._conf.linkPatterns[infos.action]
@@ -178,12 +184,13 @@ window.rallyExtension.uly = {
     }
     return false;
   },
-  templateAction: function(icon,text,isDoubleClick) {
-    var succeeded = this.copyToClipb(text)
-      , successIcon = isDoubleClick ? 'octicon-checklist': 'octicon-check'
+  templateAction: function(nodes,text,infos) {
+    var isHtml = ('simpleHtml' === infos.action)
+      , succeeded = this.copyToClipb(text, (isHtml?nodes.link:undefined))
+      , successIcon = infos.isDoubleClick ? 'octicon-checklist': 'octicon-check'
       , whichIcon = succeeded ? successIcon : 'octicon-x'
       ;
-    this.displayFeedbackIcon(icon, whichIcon);
+    this.displayFeedbackIcon(nodes.icon, whichIcon);
   },
   displayFeedbackIcon : function(icon, className) {
     icon.classList.add(className);
@@ -193,13 +200,18 @@ window.rallyExtension.uly = {
       icon.classList.add('octicon-clippy');
     },this.userConf.checkMarkFadeAwayDelay);
   },
-  copyToClipb : function(text, cb) {
+  copyToClipb : function(text, linkNode) {
     // get the text from the sibling link
     var succeeded = true
       ;
-    this.p.value = text;
-    this.p.select();
-    this.p.focus();
+    if(linkNode) {
+      this.range.selectNode(linkNode);
+      window.getSelection().addRange(this.range);
+    } else {
+      this.p.value = text;
+      this.p.select();
+      this.p.focus();
+    }
 
     try {
       // Now that we've selected the url, execute the copy command
@@ -212,6 +224,7 @@ window.rallyExtension.uly = {
     } finally {
       this.p.value = '';
       this.p.blur();
+      window.getSelection().removeAllRanges();
     }
     return succeeded;
   },
