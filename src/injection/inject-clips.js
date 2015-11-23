@@ -207,7 +207,9 @@ window.rallyExtension.uly = {
      // to avoid discontiguous selection
     window.getSelection().empty();
     if(linkNode) {
-      this.range.selectNode(linkNode);
+      var a = linkNode.cloneNode(true)
+      document.body.appendChild(a)
+      this.range.selectNode(a)
       window.getSelection().addRange(this.range);
     } else {
       this.p.value = text;
@@ -227,6 +229,9 @@ window.rallyExtension.uly = {
       this.p.value = '';
       this.p.blur();
       window.getSelection().empty();
+      if(linkNode){
+          a.remove();
+      }
     }
     return succeeded;
   },
