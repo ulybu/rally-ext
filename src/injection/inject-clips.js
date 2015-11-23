@@ -204,6 +204,8 @@ window.rallyExtension.uly = {
     // get the text from the sibling link
     var succeeded = true
       ;
+     // to avoid discontiguous selection
+    window.getSelection().empty();
     if(linkNode) {
       this.range.selectNode(linkNode);
       window.getSelection().addRange(this.range);
@@ -224,7 +226,7 @@ window.rallyExtension.uly = {
     } finally {
       this.p.value = '';
       this.p.blur();
-      window.getSelection().removeAllRanges();
+      window.getSelection().empty();
     }
     return succeeded;
   },
