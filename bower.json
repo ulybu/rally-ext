@@ -3,7 +3,7 @@
   "dependencies": {
     "octicons": "*"
   },
-  "version": "0.5.3",
+  "version": "0.6.0",
   "homepage": "https://github.com/ulybu/rally-ext",
   "authors": [
     "Ulysse Prygiel <ulysse.prygiel@gmail.com>"
