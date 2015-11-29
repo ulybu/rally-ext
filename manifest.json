@@ -3,20 +3,24 @@
   "name": "rally",
   "version": "0.6.2",
   "description":"Add Some goodies to Rally",
-	"author": "ulysse.prygiel@gmail.com",
+  "author": "ulysse.prygiel@gmail.com",
   "content_scripts":[
     {
       "matches":["https://*.rallydev.com/*"],
       "css":["icons/octicons.css", "src/injection/theme.css"],
-			"js": ["src/shared/lodash.custom.min.js","src/shared/config.js","src/injection/inject-clips.js"]
+      "js": ["src/shared/lodash.custom.min.js","src/shared/config.js","src/injection/inject-clips.js"]
     }
   ],
   "permissions": [
     "storage",
     "clipboardWrite"
   ],
-	"web_accessible_resources": [
-		"icons/*.woff"
-	],
-  "options_page": "src/options/index.html"
+  "web_accessible_resources": [
+    "icons/*.woff"
+  ],
+  "options_ui": {
+    "page": "src/options/options.html",
+    "chrome_style": true
+  },
+  "options_page": "src/options/options.html"
 }
