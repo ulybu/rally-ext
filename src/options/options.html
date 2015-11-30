@@ -4,12 +4,37 @@
   <title>Rally Extension Options</title>
   <style>
     section {
-      padding: 10px
+      display: block;
+      padding: 1px 10px 10px 10px;
+      border-radius: 3px;
+      background-color: #f7f7f7;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      color: #555;
+      text-transform: uppercase;
+      font-size: 1.5em;
+      font-weight: bold;
+    }
+    .shadow2 {
+      box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.14), 0 1px 10px 0 rgba(0, 0, 0, 0.12), 0 2px 4px -1px rgba(0, 0, 0, 0.4);
+    }
+    .shadow1 {
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    .shadow3 {
+      box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.4);
+    }
+    .shadow4 {
+      box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.4);
     }
     label {
       display: block;
       margin: 8px 0;
       cursor: pointer;
+    }
+    .margin10 {
+      margin: 10px;
     }
     .subtitle {
       font-style: italic;
@@ -32,6 +57,23 @@
     body {
       min-width: 670px;
     }
+    .topLink {
+      color: #444;
+      text-decoration: none;
+      padding: 7px 7px 4px 7px;
+      display: inline-block;
+      background-color: #F7F7F7;
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    .topLink.bug {
+      border-radius: 40px;
+    }
+    .topLink.github {
+      border-radius: 2px;
+    }
+    .topLink:hover {
+      box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.14), 0 1px 18px 0 rgba(0, 0, 0, 0.12), 0 3px 5px -1px rgba(0, 0, 0, 0.4);
+  }
   </style>
   <script src="../shared/lodash.custom.min.js"></script>
   <script src="../shared/config.js"></script>
@@ -40,7 +82,17 @@
 </head>
 
 <body class="chrome-bootstrap">
-<section class="simpleAction">
+  <div class="top-section">
+    <a class="topLink github" target="_blank" href="https://github.com/ulybu/rally-ext">
+      <span class="octicon octicon-logo-github"></span>
+    </a>
+    <span class="margin10"></span>
+    <a class="topLink bug" target="_blank" href="https://github.com/ulybu/rally-ext/issues">
+      <span class="octicon octicon-bug"></span>
+    </a>
+  </div>
+    <span class="margin10"></span>
+<section class="simpleAction shadow1">
   <h1>Simple Click Action</h1>
   <h3 class='subtitle'>What text will be copied to your clipboard when you click on the copy icon</h3>
   <label for="simple-url" name="url">
@@ -69,7 +121,10 @@
     text/html copy - <a href="https://xxx.rallydev.com/path/to/task">FE123</a>
   </label>
 </section>
-<section class="doubleAction">
+<div class="margin10">
+
+</div>
+<section class="doubleAction shadow1">
   <h1>Double Click Action</h1>
   <h3 class='subtitle'>What text will be copied to your clipboard when you double click on the copy icon</h3>
   <label for="double-url">
