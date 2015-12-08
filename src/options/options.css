@@ -5,6 +5,27 @@ section {
   background-color: #f7f7f7;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
 }
+.scroller {
+  min-width: 670px; */
+  color: rgb(51, 51, 51);
+  cursor: default;
+  min-width: 670px;
+  overflow-y: auto;
+  max-height: 490px;
+  padding-left: 5px;
+}
+.scroller > div {
+   margin: 14px 17px;
+
+}
+body {
+  margin: 0;
+}
+.bottom-section {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  padding: 10px 35px 10px 20px;
+}
 h1 {
   color: #555;
   text-transform: uppercase;
@@ -22,6 +43,20 @@ h1 {
 }
 .shadow4 {
   box-shadow: 0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12), 0 5px 5px -3px rgba(0, 0, 0, 0.4);
+}
+.shadow-top {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0px 10px 10px -10px #7F7F7F inset;
+  height: 20px;
+  margin-bottom: -20px;
+}
+.shadow-bottom {
+  position: relative;
+  z-index: 2;
+  box-shadow: 0px -10px 10px -10px #7F7F7F inset;
+  height: 20px;
+  margin-top: -20px;
 }
 label {
   display: block;
@@ -48,9 +83,6 @@ input:checked + .radio-option {
 }
 code {
   font-size: 12px
-}
-body {
-  min-width: 670px;
 }
 .topLink {
   color: #444;

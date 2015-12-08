@@ -10,6 +10,9 @@
 </head>
 
 <body class="chrome-bootstrap">
+<div class="shadow-top"></div>
+<div class="scroller">
+<div>
   <div class="top-section">
     <a class="topLink github" target="_blank" href="https://github.com/ulybu/rally-ext">
       <span class="octicon octicon-logo-github"></span>
@@ -19,70 +22,74 @@
       <span class="octicon octicon-bug"></span>
     </a>
   </div>
-    <span class="margin10"></span>
-<section class="simpleAction shadow1">
-  <h1>Simple Click Action</h1>
-  <h3 class='subtitle'>What text will be copied to your clipboard when you click on the copy icon</h3>
-  <label for="simple-url" name="url">
-    <input id='simple-url' type="radio" name='simple-action' value="url">
-    <span class="radio-option">Url</span>
-    <code>https://xxx.rallydev.com/path/to/task</code>
-  </label>
-  <label for="simple-key" name="key">
-    <input id='simple-key' type="radio" name='simple-action' value="key">
-    <span class="radio-option">Key</span>
-    <code>US12345</code> or <code>FE123</code> or <code>TA1234</code> or <code>DE1234</code>
-  </label>
-  <label for="simple-markdown" name="markdown">
-    <input id='simple-markdown' type="radio" name='simple-action' value="markdown">
-    <span class="radio-option">Markdown</span>
-    <code>[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)</code>
-  </label>
-  <label for="simple-confluence" name="confluence">
-    <input id='simple-confluence' type="radio" name='simple-action' value="confluence">
-    <span class="radio-option">Confluence</span>
-    <code>[FE123: something good somewhere | https://xxx.rallydev.com/path/to/task]</code>
-  </label>
-  <label for="simple-simpleHtml" name="simpleHtml">
-    <input id='simple-simpleHtml' type="radio" name='simple-action' value="simpleHtml">
-    <span class="radio-option">HTML</span>
-    text/html copy - <a href="https://xxx.rallydev.com/path/to/task">FE123</a>
-  </label>
-</section>
-<div class="margin10">
-
+  <span class="margin10"></span>
+  <section class="simpleAction shadow1">
+    <h1>Simple Click Action</h1>
+    <h3 class='subtitle'>What text will be copied to your clipboard when you click on the copy icon</h3>
+    <label for="simple-url" name="url">
+      <input id='simple-url' type="radio" name='simple-action' value="url">
+      <span class="radio-option">Url</span>
+      <code>https://xxx.rallydev.com/path/to/task</code>
+    </label>
+    <label for="simple-key" name="key">
+      <input id='simple-key' type="radio" name='simple-action' value="key">
+      <span class="radio-option">Key</span>
+      <code>US12345</code> or <code>FE123</code> or <code>TA1234</code> or <code>DE1234</code>
+    </label>
+    <label for="simple-markdown" name="markdown">
+      <input id='simple-markdown' type="radio" name='simple-action' value="markdown">
+      <span class="radio-option">Markdown</span>
+      <code>[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)</code>
+    </label>
+    <label for="simple-confluence" name="confluence">
+      <input id='simple-confluence' type="radio" name='simple-action' value="confluence">
+      <span class="radio-option">Confluence</span>
+      <code>[FE123: something good somewhere | https://xxx.rallydev.com/path/to/task]</code>
+    </label>
+    <label for="simple-simpleHtml" name="simpleHtml">
+      <input id='simple-simpleHtml' type="radio" name='simple-action' value="simpleHtml">
+      <span class="radio-option">HTML</span>
+      text/html copy - <a href="https://xxx.rallydev.com/path/to/task">FE123</a>
+    </label>
+  </section>
+  <div class="margin10"></div>
+  <section class="doubleAction shadow1">
+    <h1>Double Click Action</h1>
+    <h3 class='subtitle'>What text will be copied to your clipboard when you double click on the copy icon</h3>
+    <label for="double-url">
+      <input id='double-url' type="radio" name='double-action' value="url">
+      <span class="radio-option">Url</span>
+      <code>https://xxx.rallydev.com/path/to/task</code>
+    </label>
+    <label for="double-key">
+      <input id='double-key' type="radio" name='double-action' value="key">
+      <span class="radio-option">Key</span>
+      <code>US12345</code> or <code>FE123</code> or <code>TA1234</code> or <code>DE1234</code>
+    </label>
+    <label for="double-markdown">
+      <input id='double-markdown' type="radio" name='double-action' value="markdown">
+      <span class="radio-option">Markdown</span>
+      <code>[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)</code>
+    </label>
+    <label for="double-confluence">
+      <input id='double-confluence' type="radio" name='double-action' value="confluence">
+      <span class="radio-option">Confluence</span>
+      <code>[FE123: something good somewhere | https://xxx.rallydev.com/path/to/task]</code>
+    </label>
+    <label for="double-simpleHtml">
+      <input id='double-simpleHtml' type="radio" name='double-action' value="simpleHtml">
+      <span class="radio-option">HTML</span>
+      text/html copy - <a href="https://xxx.rallydev.com/path/to/task">FE123</a>
+    </label>
+  </section>
+  <!-- <br/> -->
 </div>
-<section class="doubleAction shadow1">
-  <h1>Double Click Action</h1>
-  <h3 class='subtitle'>What text will be copied to your clipboard when you double click on the copy icon</h3>
-  <label for="double-url">
-    <input id='double-url' type="radio" name='double-action' value="url">
-    <span class="radio-option">Url</span>
-    <code>https://xxx.rallydev.com/path/to/task</code>
-  </label>
-  <label for="double-key">
-    <input id='double-key' type="radio" name='double-action' value="key">
-    <span class="radio-option">Key</span>
-    <code>US12345</code> or <code>FE123</code> or <code>TA1234</code> or <code>DE1234</code>
-  </label>
-  <label for="double-markdown">
-    <input id='double-markdown' type="radio" name='double-action' value="markdown">
-    <span class="radio-option">Markdown</span>
-    <code>[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)</code>
-  </label>
-  <label for="double-confluence">
-    <input id='double-confluence' type="radio" name='double-action' value="confluence">
-    <span class="radio-option">Confluence</span>
-    <code>[FE123: something good somewhere | https://xxx.rallydev.com/path/to/task]</code>
-  </label>
-  <label for="double-simpleHtml">
-    <input id='double-simpleHtml' type="radio" name='double-action' value="simpleHtml">
-    <span class="radio-option">HTML</span>
-    text/html copy - <a href="https://xxx.rallydev.com/path/to/task">FE123</a>
-  </label>
-</section>
-<br/>
-  <button id="save">Save</button>
+</div>
+  <div class="shadow-bottom"></div>
+  <div class="bottom-section">
+    <button id="save">Save</button>
+  </div>
   <script src="options.js"></script>
 </body>
+
 </html>
