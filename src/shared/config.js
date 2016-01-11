@@ -12,15 +12,18 @@ window.rallyExtension.config = {
   get: function() {
     return this.userConf;
   },
-  set: function(confToSave) {
+  set: function(confToSave,cb) {
     if(!confToSave || !Object.keys(confToSave).length){
       console.error("Trying to save to sync storage an empty config")
-      return;
+      return false;
     }
     chrome.storage.sync.set({
       userConf: confToSave
     }, function() {
-      console.log("[config] New config sync'ed: ", confToSave);
+      if(!chrome.runtime.lastError) {
+        console.log("[config] New config sync'ed: ", confToSave);
+      }
+      cb(chrome.runtime.lastError);
     })
   },
   getDefault: function() {
@@ -49,7 +52,7 @@ window.rallyExtension.config = {
         var syncConfKeys = Object.keys(this.userConf)
           , defaultConfKeys = Object.keys(this.getDefault())
           ;
-          
+
         // @TODO Only test is new settings. Need to test if missing or replaced
         if(syncConfKeys.length !== defaultConfKeys.length){
           console.log('user',this.userConf,'defaut',this.getDefault());

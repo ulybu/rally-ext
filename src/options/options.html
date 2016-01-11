@@ -1,173 +1,95 @@
-<link rel="import" href="../../bower_components/polymer/polymer.html">
-<link rel="import" href="../../bower_components/paper-input/paper-input.html">
-<link rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html">
-<link rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html">
-<link rel="import" href="../../bower_components/iron-icons/iron-icons.html">
-<link rel="import" href="../../bower_components/paper-button/paper-button.html">
-<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
-<link rel="import" href="../../bower_components/paper-material/paper-material.html">
-<link rel="import" href="../../bower_components/paper-toast/paper-toast.html">
-<link rel="import" href="../../bower_components/iron-flex-layout/iron-flex-layout.html">
-<link rel="import" href="setting-section.html">
-<link rel="import" href="copy-to-clipboard.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Rally Extension Options</title>
+  <script src="../shared/lodash.custom.min.js"></script>
+  <script src="../shared/config.js"></script>
+  <link rel="stylesheet" href="../../icons/octicons.css">
+  <link rel="stylesheet" href="options.css">
 
-<dom-module id="rally-options">
+</head>
 
-  <style>
-  a { text-decoration: none; color:white}
-  a:visited { text-decoration: none; }
-  a:hover { text-decoration: none; }
-  a:focus { text-decoration: none; }
-  a:hover, a:active { text-decoration: none; }
+<body class="chrome-bootstrap">
+<div class="shadow-ruler top"></div>
+<div class="scroller">
+<div>
+  <div class="top-section">
+    <a class="topLink github" target="_blank" href="https://github.com/ulybu/rally-ext">
+      <span class="octicon octicon-logo-github"></span>
+    </a>
+    <span class="margin10"></span>
+    <a class="topLink bug" target="_blank" href="https://github.com/ulybu/rally-ext/issues">
+      <span class="octicon octicon-bug"></span>
+    </a>
+  </div>
+  <span class="margin10"></span>
+  <section class="simpleAction shadow1">
+    <h1>Simple Click Action</h1>
+    <h3 class='subtitle'>What text will be copied to your clipboard when you click on the copy icon</h3>
+    <label for="simple-url" name="url">
+      <input id='simple-url' type="radio" name='simple-action' value="url">
+      <span class="radio-option">Url</span>
+      <code>https://xxx.rallydev.com/path/to/task</code>
+    </label>
+    <label for="simple-key" name="key">
+      <input id='simple-key' type="radio" name='simple-action' value="key">
+      <span class="radio-option">Key</span>
+      <code>US12345</code> or <code>FE123</code> or <code>TA1234</code> or <code>DE1234</code>
+    </label>
+    <label for="simple-markdown" name="markdown">
+      <input id='simple-markdown' type="radio" name='simple-action' value="markdown">
+      <span class="radio-option">Markdown</span>
+      <code>[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)</code>
+    </label>
+    <label for="simple-confluence" name="confluence">
+      <input id='simple-confluence' type="radio" name='simple-action' value="confluence">
+      <span class="radio-option">Confluence</span>
+      <code>[FE123: something good somewhere | https://xxx.rallydev.com/path/to/task]</code>
+    </label>
+    <label for="simple-simpleHtml" name="simpleHtml">
+      <input id='simple-simpleHtml' type="radio" name='simple-action' value="simpleHtml">
+      <span class="radio-option">HTML</span>
+      text/html copy - <a href="https://xxx.rallydev.com/path/to/task">FE123</a>
+    </label>
+  </section>
+  <div class="margin10"></div>
+  <section class="doubleAction shadow1">
+    <h1>Double Click Action</h1>
+    <h3 class='subtitle'>What text will be copied to your clipboard when you double click on the copy icon</h3>
+    <label for="double-url">
+      <input id='double-url' type="radio" name='double-action' value="url">
+      <span class="radio-option">Url</span>
+      <code>https://xxx.rallydev.com/path/to/task</code>
+    </label>
+    <label for="double-key">
+      <input id='double-key' type="radio" name='double-action' value="key">
+      <span class="radio-option">Key</span>
+      <code>US12345</code> or <code>FE123</code> or <code>TA1234</code> or <code>DE1234</code>
+    </label>
+    <label for="double-markdown">
+      <input id='double-markdown' type="radio" name='double-action' value="markdown">
+      <span class="radio-option">Markdown</span>
+      <code>[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)</code>
+    </label>
+    <label for="double-confluence">
+      <input id='double-confluence' type="radio" name='double-action' value="confluence">
+      <span class="radio-option">Confluence</span>
+      <code>[FE123: something good somewhere | https://xxx.rallydev.com/path/to/task]</code>
+    </label>
+    <label for="double-simpleHtml">
+      <input id='double-simpleHtml' type="radio" name='double-action' value="simpleHtml">
+      <span class="radio-option">HTML</span>
+      text/html copy - <a href="https://xxx.rallydev.com/path/to/task">FE123</a>
+    </label>
+  </section>
+  <!-- <br/> -->
+</div>
+</div>
+  <div class="shadow-ruler bottom"></div>
+  <div class="bottom-section">
+    <button id="save">Save</button>
+  </div>
+  <script src="options.js"></script>
+</body>
 
-  :host {
-    --hp-blue: #0096D6;
-    --hp-blue-dark: #0775A5;
-    --paper-toolbar-background: var(--hp-blue);
-  }
-  .tall .title {
-    font-size : 40px;
-    line-height: 48px;
-  }
-  .page {
-    padding: 48px 62px;
-  }
-  .octicon-logo-github {
-    padding-top: 4px;
-  }
-  .toast-action {
-    color:#eeff41;
-    margin-left:5px;
-    cursor: pointer;
-  }
-  </style>
-
-  <template>
-    <paper-header-panel mode="waterfall-tall" class="flex">
-      <paper-toolbar>
-        <span class="title middle">Rally Extension - Options</span>
-        <div class="flex"></div>
-        <paper-button >
-          <a target="_blank" href="https://github.com/ulybu/rally-ext">
-            <span class="octicon octicon-logo-github"></span>
-          </a>
-        </paper-button>
-        <a target="_blank" href="https://github.com/ulybu/rally-ext/issues">
-          <paper-icon-button icon="bug-report"></paper-icon-button>
-        </a>
-      </paper-toolbar>
-      <div class="page">
-        <copy-to-clipboard
-          on-save="saveSection"
-          on-restore="restoreSection"
-          conf="{{conf}}"></copy-to-clipboard>
-        <!-- <setting-section notresetable sectionName="Second Section">
-          <div class="settingBox" style = "min-height:100px;">
-            Some settings
-          </div>
-        </setting-section> -->
-      </div>
-      <paper-toast id="toast" duration="7000">
-        <span class="toast-action" on-tap='reload' id="yellotoast">Refresh the page to see them</span>
-      </paper-toast>
-    </paper-header-panel>
-  </template>
-
-</dom-module>
-
-<script>
-  Polymer({
-    is: 'rally-options',
-    properties: {
-      conf:{
-        type:String
-      }
-    },
-    toastTexts: {
-      save : {
-        success: "Your settings have been saved (details in the console)",
-        error: "Error while saving settings. May be some more info in the console"
-      },
-      restore : {
-        success: "Default settings have been restored (details in the console). ",
-        error: "Error while retoring default settings. May be some more info in the console"
-      }
-    },
-    created: function() {
-      function whenConfLoaded () {
-        this.conf = rallyExtension.config.get();
-      }
-      rallyExtension.config.initiator(whenConfLoaded.bind(this));
-    },
-    saveSection: function(e) {
-      var isSuccess = this.saveSome(e.detail.options,e.detail.error,this);
-      this.showToast('save',isSuccess)
-    },
-    saveSome: function(some,error) {
-      _.assign(this.conf, some);
-      return this.save(error);
-    },
-    save: function(inError) {
-      var isSuccess = true
-        , error
-        ;
-      if(inError) {
-        isSuccess = false;
-        error = inError;
-      } else {
-        try {
-          rallyExtension.config.set(this.conf);
-        } catch (storageSaveE) {
-          isSuccess = false;
-          error = storageSaveE;
-        }
-      }
-      if(!isSuccess) {
-        console.error("Error during saving settings.", error);
-      }
-      return isSuccess
-    },
-    restoreSection: function(e) {
-      var isSuccess = this.restoreDefaultSome(e.detail.optionNames);
-      this.showToast('restore',isSuccess)
-    },
-    restoreDefaultSome: function(optionNames) {
-      var defaults
-        , someDefaults
-        , getDefaultE
-        ;
-      try {
-        defaults = rallyExtension.config.getDefault();
-      } catch (getDefaultE) {
-      } finally {
-        if(getDefaultE) {
-          console.error("[options] Couldn't retrieve default config.",getDefaultE);
-          return false;
-        } else {
-          someDefaults = _.pick(defaults,optionNames);
-          console.log('[options] Retrieve default options',someDefaults);
-          return this.saveSome(someDefaults,undefined);
-        }
-      }
-    },
-    reload: function() {
-      location.reload();
-    },
-    showToast: function(action,isSuccess) {
-      var toast = this.$.toast
-        , text = this.toastTexts[action][isSuccess?'success':'error']
-        ;
-      toast.hide();
-      toast.text = text;
-      //@TODO ugly
-      this.$.yellotoast.style.display= (action==='restore' && isSuccess)?"inline-block":'none'
-      toast.show();
-    },
-    ready: function() {
-    },
-    attached: function() {
-    },
-    detached: function() {
-    },
-  });
-</script>
+</html>
