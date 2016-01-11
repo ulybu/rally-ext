@@ -11,7 +11,7 @@ window.rallyExtension.uly = {
       key: "%key",
       markdown:"[%key: %headline](%url)",
       confluence:"[%key: %headline|%url]",
-      simpleHtml: "<a href='%url'>%key: %headline</a>"
+      simpleHtml: "%key: %headline"
     }
   },
   lastInfos: false,
@@ -208,6 +208,9 @@ window.rallyExtension.uly = {
     window.getSelection().empty();
     if(linkNode) {
       var a = linkNode.cloneNode(true)
+      var txt = document.createTextNode(text);
+      a.childNodes[1].remove();
+      a.appendChild(txt);
       document.body.appendChild(a)
       this.range.selectNode(a)
       window.getSelection().addRange(this.range);
