@@ -6,6 +6,7 @@ var gulp = require('gulp'),
   copy = require('gulp-copy'),
   zip = require('gulp-zip'),
   sync = require('gulp-config-sync'),
+  less = require('gulp-less'),
   del = require('del')
   ;
 var zipName = 'rally-ext.zip';
@@ -43,9 +44,22 @@ gulp.task('build-options', ['clean'], function() {
   var js = gulp.src('src/options/*.js')
     .pipe(uglify())
     .pipe(gulp.dest('build/src/options'));
-  var misc = gulp.src(['src/options/options.html', 'src/options/options.css'])
+  var html = gulp.src('src/options/options.html')
     .pipe(copy('build'));
-    return merge(js,misc);
+  var merged =  merge(js,html);
+  var css = gulp.src('src/options/*.less')
+    .pipe(less( {  paths: ['.'] }))
+    .pipe(gulp.dest('build/src/options'));
+  merged.add(css);
+  return merged;
+});
+gulp.task('watch-less', function () {
+    gulp.watch('src/options/*.less', ['less-dev']);
+});
+gulp.task('less-dev', function () {
+  return gulp.src('src/options/*.less')
+    .pipe(less( {  paths: ['.'] }))
+    .pipe(gulp.dest('src/options'));
 });
 gulp.task('zip', ['build'], function() {
   return gulp.src('build/**')
