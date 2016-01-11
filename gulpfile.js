@@ -7,7 +7,8 @@ var gulp = require('gulp'),
   zip = require('gulp-zip'),
   sync = require('gulp-config-sync'),
   less = require('gulp-less'),
-  del = require('del')
+  del = require('del'),
+  insert = require('gulp-insert')
   ;
 var zipName = 'rally-ext.zip';
 var syncOptions = {
@@ -57,8 +58,11 @@ gulp.task('watch-less', function () {
     gulp.watch('src/options/*.less', ['less-dev']);
 });
 gulp.task('less-dev', function () {
+  var header = "/* This file is build with less. Don't modify it, changes will be overriden.\n"
+    + "Instead modify the matching .less file. */\n";
   return gulp.src('src/options/*.less')
     .pipe(less( {  paths: ['.'] }))
+    .pipe(insert.prepend(header))
     .pipe(gulp.dest('src/options'));
 });
 gulp.task('zip', ['build'], function() {
