@@ -3,7 +3,7 @@
   "dependencies": {
     "octicons": "*"
   },
-  "version": "0.6.2",
+  "version": "0.7.0",
   "homepage": "https://github.com/ulybu/rally-ext",
   "authors": [
     "Ulysse Prygiel <ulysse.prygiel@gmail.com>"
@@ -14,6 +14,5 @@
     "bower_components"
   ],
   "description": "Add Some goodies to Rally",
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
