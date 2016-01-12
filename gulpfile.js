@@ -55,15 +55,15 @@ gulp.task('build-options', ['clean'], function() {
   return merged;
 });
 gulp.task('watch-less', function () {
-    gulp.watch('src/options/*.less', ['less-dev']);
+    gulp.watch('src/**/*.less', ['less-dev']);
 });
 gulp.task('less-dev', function () {
   var header = "/* This file is build with less. Don't modify it, changes will be overriden.\n"
     + "Instead modify the matching .less file. */\n";
-  return gulp.src('src/options/*.less')
+  return gulp.src('src/**/*.less')
     .pipe(less( {  paths: ['.'] }))
     .pipe(insert.prepend(header))
-    .pipe(gulp.dest('src/options'));
+    .pipe(gulp.dest('src'));
 });
 gulp.task('zip', ['build'], function() {
   return gulp.src('build/**')

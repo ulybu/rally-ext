@@ -1,33 +1,75 @@
-.uly-clip-icon:hover {
-	color: #888;
-}
+/* This file is build with less. Don't modify it, changes will be overriden.
+Instead modify the matching .less file. */
 .uly-clip-icon {
-	display: inline-block;
-	cursor: pointer;
-	text-indent: 5px;
-	width: 16px;
-	height: 16px;
-	color: #444;
+  display: inline-block;
+  cursor: pointer;
+  text-indent: 5px;
+  width: 16px;
+  height: 16px;
+  color: #444;
+}
+.uly-clip-icon:hover {
+  color: #888;
 }
 .octicon-check {
-	color: #3a874f;
+  color: #3a874f;
 }
 .octicon-check:hover {
-	color: #8dc63f;
+  color: #8dc63f;
 }
 .octicon-x {
-	color: #b81b10;
+  color: #b81b10;
 }
 .octicon-x:hover {
-	color: #E12114;
+  color: #E12114;
 }
 .uly-farOnTop {
-	position: absolute;
-	top: -10000px;
+  position: absolute;
+  top: -10000px;
 }
 .ticket-bar-icon {
-  margin: 3px;
   text-indent: 0px;
+  color: #444;
+  padding: 3px;
 }
-.x4-box-target > .x4-box-item {
+.ticket-bar-border {
+  cursor: pointer;
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+  margin: 2px;
+  position: relative;
+  width: 23px;
+}
+.ticket-bar-border:hover {
+  color: #333;
+  border-color: #00a9e0;
+}
+.ticket-bar-border:first-of-type {
+  margin-left: 8px;
+}
+.success-shim {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #8dc63f;
+  color: white;
+}
+.success-shim:hover {
+  color: white;
+}
+.copy-succeeding {
+  border-color: #8dc63f !important;
+}
+.copy-succeeding .success-shim {
+  display: inline-block;
+}
+.copy-away {
+  transition: border-color 2s;
+}
+.copy-away .success-shim {
+  display: inline-block;
+  transition: opacity 2s;
+  opacity: 0;
 }

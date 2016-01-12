@@ -1,0 +1,82 @@
+@grey: #444;
+@grey-hover: #888;
+@green: #3a874f;
+@blue: #00a9e0;
+@green-hover: #8dc63f;
+@green-success: #8dc63f;
+@fadeaway-tempo: 2s;
+.uly-clip-icon {
+  display: inline-block;
+  cursor: pointer;
+  text-indent:  5px;
+  width: 16px;
+  height: 16px;
+  color: @grey;
+  &:hover {
+    color: @grey-hover;
+  }
+}
+.octicon-check {
+  color: @green;
+  &:hover {
+    color: @green-hover;
+  }
+}
+.octicon-x {
+  color: #b81b10;
+  &:hover {
+    color: #E12114;
+  }
+}
+.uly-farOnTop {
+  position: absolute;
+  top: -10000px;
+}
+.ticket-bar-icon {
+  text-indent: 0px;
+  color: @grey;
+  padding: 3px;
+}
+.ticket-bar-border {
+  cursor: pointer;
+  border: 1px solid #d6d6d6;
+  border-radius: 2px;
+  margin: 2px;
+  position: relative;
+  width: 23px;
+  &:hover {
+    color: #333;
+    border-color: @blue;
+  }
+  &:first-of-type {
+    margin-left: 8px;
+  }
+}
+.success-shim {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #8dc63f;
+  color: white;
+  &:hover {
+    color: white;
+  }
+}
+.copy-succeeding {
+  border-color: @green-success !important;
+  .success-shim {
+    display: inline-block;
+  }
+}
+.copy-away {
+  .success-shim {
+    display: inline-block;
+    transition: opacity @fadeaway-tempo;
+    opacity: 0;
+  }
+  transition: border-color @fadeaway-tempo;
+}
+.x4-box-target > .x4-box-item {
+}

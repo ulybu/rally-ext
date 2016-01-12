@@ -69,38 +69,70 @@ window.rallyExtension.uly = {
     var bar;
     if(isATicketPage()) {
       if(bar=hasTicketBar()) {
-        this.injectTicketIcons(bar);
+        var icons = this.injectTicketIcons(bar);
+        icons.forEach(function(e) {
+          e.elem.addEventListener('click',this.visualSuccess);
+        },this);
       } else {
         setTimeout(this.hashChanged.bind(this), 1000);
       }
     }
   },
+  visualSuccess: function (e){
+    var target = e.currentTarget;
+    target.classList.add('transitioner','copy-succeeding','border-success');
+    setTimeout(function(){
+      target.classList.remove('border-success','copy-succeeding');
+      target.classList.add('fadeaway','copy-away');
+      setTimeout(function(){
+        target.classList.remove('transitioner','fadeaway','copy-away');
+      },2000);
+    },500);
+  },
   injectTicketIcons: function(keyBox) {
-    function getBuildElem() {
+    if (!keyBox) {
+      return false;
+    }
+    function addborder(elem ){
+      var border = document.createElement('span');
+      border.classList.add('ticket-bar-border');
+      border.appendChild(elem);
+      var shim = getBuildElem();
+      shim.classList.add('success-shim','octicon-check');
+      border.appendChild(shim)
+      return border;
+    }
+    function getBuildElem(customClass) {
       var elem = document.createElement('span');
       elem.classList.add('ticket-bar-icon', 'octicon');
       return elem;
-    }
-    if (!keyBox) {
-      return false;
     }
     var titleBar = keyBox.parentElement.children[1]
       , barLeft = titleBar.style.left
       , barWidth = titleBar.style.width
       , mdIcon = getBuildElem()
       , linkIcon = getBuildElem()
-      , widthByIcon = 20
+      , widthByIcon = 26
       , iconsCount = 0
     ;
     mdIcon.classList.add('octicon-markdown')
     linkIcon.classList.add('octicon-link')
+    
+    linkIcon = addborder(linkIcon);
+    mdIcon = addborder(mdIcon);
+
     keyBox.appendChild(linkIcon);
     keyBox.appendChild(mdIcon);
-
+    
     barLeft = Number.parseInt(barLeft.substring(0,barLeft.indexOf('p')),10);
     barWidth = Number.parseInt(barWidth.substring(0,barWidth.indexOf('p')),10);
     titleBar.style.left = (barLeft + (widthByIcon*keyBox.childElementCount)) + 'px';
     titleBar.style.width = (barWidth - (widthByIcon*keyBox.childElementCount)) + 'px';
+
+    return [
+      {elem: mdIcon, action:'markdown'},
+      {elem: linkIcon, action:'link'}
+    ];
   },
   handler: function(e) {
     e.stopPropagation();
