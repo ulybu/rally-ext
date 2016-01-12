@@ -20,6 +20,9 @@ window.rallyExtension.uly = {
 
     this.addFontFace(this._conf.fontUrl);
 
+    this.listenHash();
+    this.hashChanged();
+
     this.range = document.createRange();
     this.p = document.createElement("input");
     this.p.classList.add(this._conf.farOnTopClass);
@@ -49,6 +52,55 @@ window.rallyExtension.uly = {
     tempNode.classList.add('octicon-clippy');
     tempNode.classList.add('octicon');
     return tempNode;
+  },
+  listenHash: function() {
+    window.addEventListener('hashchange',this.hashChanged.bind(this));
+  },
+  hashChanged: function() {
+    function hasTicketBar() {
+      return document.querySelector(".x4-box-target > .x4-box-item")
+    }
+    function isATicketPage() {
+      var hash= window.location.hash
+        , reg = /detail\/.*(userstory|task|feature|defect)\/\d*$/
+      ;
+      return reg.test(hash);
+    }
+    var bar;
+    if(isATicketPage()) {
+      if(bar=hasTicketBar()) {
+        this.injectTicketIcons(bar);
+      } else {
+        setTimeout(this.hashChanged.bind(this), 1000);
+      }
+    }
+  },
+  injectTicketIcons: function(keyBox) {
+    function getBuildElem() {
+      var elem = document.createElement('span');
+      elem.classList.add('ticket-bar-icon', 'octicon');
+      return elem;
+    }
+    if (!keyBox) {
+      return false;
+    }
+    var titleBar = keyBox.parentElement.children[1]
+      , barLeft = titleBar.style.left
+      , barWidth = titleBar.style.width
+      , mdIcon = getBuildElem()
+      , linkIcon = getBuildElem()
+      , widthByIcon = 20
+      , iconsCount = 0
+    ;
+    mdIcon.classList.add('octicon-markdown')
+    linkIcon.classList.add('octicon-link')
+    keyBox.appendChild(linkIcon);
+    keyBox.appendChild(mdIcon);
+
+    barLeft = Number.parseInt(barLeft.substring(0,barLeft.indexOf('p')),10);
+    barWidth = Number.parseInt(barWidth.substring(0,barWidth.indexOf('p')),10);
+    titleBar.style.left = (barLeft + (widthByIcon*keyBox.childElementCount)) + 'px';
+    titleBar.style.width = (barWidth - (widthByIcon*keyBox.childElementCount)) + 'px';
   },
   handler: function(e) {
     e.stopPropagation();
@@ -190,7 +242,6 @@ window.rallyExtension.uly = {
   function whenConfLoaded () {
     rallyExtension.uly.userConf = rallyExtension.config.get();
     rallyExtension.uly.init();
-    rallyExtension.uly.startInjecting();
   }
   rallyExtension.config.initiator(whenConfLoaded.bind(rallyExtension.uly))
 })()

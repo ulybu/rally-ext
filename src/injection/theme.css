@@ -25,3 +25,9 @@
 	position: absolute;
 	top: -10000px;
 }
+.ticket-bar-icon {
+  margin: 3px;
+  text-indent: 0px;
+}
+.x4-box-target > .x4-box-item {
+}
