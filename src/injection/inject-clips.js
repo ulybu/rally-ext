@@ -80,14 +80,14 @@ window.rallyExtension.uly = {
   },
   visualSuccess: function (e){
     var target = e.currentTarget;
-    target.classList.add('transitioner','copy-succeeding','border-success');
+    target.classList.add('copy-succeeding');
     setTimeout(function(){
-      target.classList.remove('border-success','copy-succeeding');
-      target.classList.add('fadeaway','copy-away');
+      target.classList.remove('copy-succeeding');
+      target.classList.add('copy-away');
       setTimeout(function(){
-        target.classList.remove('transitioner','fadeaway','copy-away');
+        target.classList.remove('copy-away');
       },2000);
-    },500);
+    },200);
   },
   injectTicketIcons: function(keyBox) {
     if (!keyBox) {
@@ -97,12 +97,18 @@ window.rallyExtension.uly = {
       var border = document.createElement('span');
       border.classList.add('ticket-bar-border');
       border.appendChild(elem);
-      var shim = getBuildElem();
+      var shim = buildIcon();
       shim.classList.add('success-shim','octicon-check');
       border.appendChild(shim)
       return border;
     }
-    function getBuildElem(customClass) {
+    function buildText(text) {
+      var elem = document.createElement('span');
+      elem.classList.add('ticket-bar-text');
+      elem.textContent = text || '';
+      return elem;
+    }
+    function buildIcon(customClass) {
       var elem = document.createElement('span');
       elem.classList.add('ticket-bar-icon', 'octicon');
       return elem;
@@ -110,9 +116,10 @@ window.rallyExtension.uly = {
     var titleBar = keyBox.parentElement.children[1]
       , barLeft = titleBar.style.left
       , barWidth = titleBar.style.width
-      , mdIcon = getBuildElem()
-      , linkIcon = getBuildElem()
-      , widthByIcon = 26
+      , mdIcon = buildIcon()
+      , linkIcon = buildIcon()
+      , htmlIcon = buildText('Html')
+      , widthByIcon = 28
       , iconsCount = 0
     ;
     mdIcon.classList.add('octicon-markdown')
@@ -120,7 +127,10 @@ window.rallyExtension.uly = {
     
     linkIcon = addborder(linkIcon);
     mdIcon = addborder(mdIcon);
+    htmlIcon = addborder(htmlIcon);
 
+    // this will fixed the displayed order
+    keyBox.appendChild(htmlIcon);
     keyBox.appendChild(linkIcon);
     keyBox.appendChild(mdIcon);
     
@@ -131,6 +141,7 @@ window.rallyExtension.uly = {
 
     return [
       {elem: mdIcon, action:'markdown'},
+      {elem: htmlIcon, action:'simpleHtml'},
       {elem: linkIcon, action:'link'}
     ];
   },

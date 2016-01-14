@@ -1,5 +1,6 @@
 @grey: #444;
-@grey-hover: #888;
+@grey-hover: #999;
+@grey-light: #C7C7C7;
 @green: #3a874f;
 @blue: #00a9e0;
 @green-hover: #8dc63f;
@@ -35,21 +36,51 @@
 .ticket-bar-icon {
   text-indent: 0px;
   color: @grey;
-  padding: 3px;
+  // padding: 3px;
+  vertical-align: top;
+}
+.ticket-bar-text  {
+  font: 11px sans-serif;
+  font-weight: bolder;
+  font-family: sans-serif;
+  color: @grey;
+  padding-top: 7px !important;
+  vertical-align: top;
 }
 .ticket-bar-border {
+  display: inline-block;
   cursor: pointer;
-  border: 1px solid #d6d6d6;
-  border-radius: 2px;
-  margin: 2px;
+  border: 1px solid @grey-light;
+  border-right: transparent;
   position: relative;
-  width: 23px;
+  min-width: 25px;
+  height: 30px;
+  margin-bottom: 1px;
+  & > span {
+    padding: 6px 3px;
+    &:not(.success-shim) {
+      display: inline-block;
+    }
+  }
   &:hover {
     color: #333;
     border-color: @blue;
   }
+  &:hover + .ticket-bar-border {
+    border-left-color: @blue;
+  }
   &:first-of-type {
     margin-left: 8px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  &:last-of-type {
+    border-right: 1px solid @grey-light;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    &:hover {
+      border-right-color: @blue;
+    }
   }
 }
 .success-shim {
@@ -69,6 +100,9 @@
   .success-shim {
     display: inline-block;
   }
+  & + .ticket-bar-border {
+    border-left-color: @green-success !important;
+  }
 }
 .copy-away {
   .success-shim {
@@ -77,6 +111,12 @@
     opacity: 0;
   }
   transition: border-color @fadeaway-tempo;
+  & + .ticket-bar-border {
+    transition: border-left-color @fadeaway-tempo;
+  }
 }
-.x4-box-target > .x4-box-item {
-}
+[id^='rallydetailtitle'] > .x4-component {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+} 
