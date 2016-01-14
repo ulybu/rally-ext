@@ -210,7 +210,7 @@ window.rallyExtension.uly = {
   },
   templateAction: function(nodes,text,infos) {
     var isHtml = ('simpleHtml' === infos.action)
-      , succeeded = this.copyToClipb(text, (isHtml?nodes.link:undefined))
+      , succeeded = this.copyToClipb(text, (isHtml?infos.url:undefined))
       , successIcon = infos.isDoubleClick ? 'octicon-checklist': 'octicon-check'
       , whichIcon = succeeded ? successIcon : 'octicon-x'
       ;
@@ -224,17 +224,25 @@ window.rallyExtension.uly = {
       icon.classList.add('octicon-clippy');
     },this.userConf.checkMarkFadeAwayDelay);
   },
-  copyToClipb : function(text, linkNode) {
+  copyToClipb : function(text, urlToLink) {
     // get the text from the sibling link
     var succeeded = true
       ;
+    function getClone(txt,type) {
+      var a = document.createElement('a');
+      a.classList.add('formatted-id-link');
+      a.setAttribute('href', urlToLink);
+      var span = document.createElement('span');
+      span.classList.add('artifact-icon', 'icon-');
+      var textNode = document.createTextNode(txt);
+      a.appendChild(span);
+      a.appendChild(textNode);
+      return a;
+    }
      // to avoid discontiguous selection
     window.getSelection().empty();
-    if(linkNode) {
-      var a = linkNode.cloneNode(true)
-      var txt = document.createTextNode(text);
-      a.childNodes[1].remove();
-      a.appendChild(txt);
+    if(urlToLink) {
+      var a = getClone(text);
       document.body.appendChild(a)
       this.range.selectNode(a)
       window.getSelection().addRange(this.range);
@@ -256,7 +264,7 @@ window.rallyExtension.uly = {
       this.p.value = '';
       this.p.blur();
       window.getSelection().empty();
-      if(linkNode){
+      if(urlToLink){
           a.remove();
       }
     }
