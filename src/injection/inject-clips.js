@@ -279,12 +279,19 @@ window.rallyExtension.uly = {
       link.parentElement.appendChild(iconElem);
     }
   },
+  startInjecting : function() {
+    this.intervalID = setInterval(this.injectLinks.bind(this), this.userConf.injectionInterval);
+  },
+  stopInjecting : function() {
+    clearInterval(this.intervalID);
+  }
 };
 
 (function() {
   function whenConfLoaded () {
     rallyExtension.uly.userConf = rallyExtension.config.get();
     rallyExtension.uly.init();
+    rallyExtension.uly.startInjecting();
   }
   rallyExtension.config.initiator(whenConfLoaded.bind(rallyExtension.uly))
 })()
