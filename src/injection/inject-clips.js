@@ -131,8 +131,8 @@ window.rallyExtension.uly = {
 
     // this will fixed the displayed order
     keyBox.appendChild(htmlIcon);
-    keyBox.appendChild(linkIcon);
     keyBox.appendChild(mdIcon);
+    keyBox.appendChild(linkIcon);
     
     barLeft = Number.parseInt(barLeft.substring(0,barLeft.indexOf('p')),10);
     barWidth = Number.parseInt(barWidth.substring(0,barWidth.indexOf('p')),10);

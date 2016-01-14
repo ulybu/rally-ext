@@ -1,15 +1,19 @@
-@grey: #444;
-@grey-hover: #999;
-@grey-light: #C7C7C7;
-@green: #3a874f;
-@blue: #00a9e0;
-@green-hover: #8dc63f;
-@green-success: #8dc63f;
-@fadeaway-tempo: 2s;
+@grey            : #444;
+@grey-hover      : #999;
+@green-success   : #8dc63f;
+@green           : #3a874f;
+@green-hover     : @green-success;
+@col-font        : #444;
+@col-font-hover  : #222;
+@col-border      : silver;
+@col-border-hover: silver;
+@col-bg-hover    : silver;
+@col-bg-success  : @green-success;
+@tp-fadeaway     : 2s;
 .uly-clip-icon {
   display: inline-block;
   cursor: pointer;
-  text-indent:  5px;
+  text-indent: 5px;
   width: 16px;
   height: 16px;
   color: @grey;
@@ -50,12 +54,13 @@
 .ticket-bar-border {
   display: inline-block;
   cursor: pointer;
-  border: 1px solid @grey-light;
+  border: 1px solid @col-border;
   border-right: transparent;
   position: relative;
   min-width: 25px;
   height: 30px;
   margin-bottom: 1px;
+  color: @col-font;
   & > span {
     padding: 6px 3px;
     &:not(.success-shim) {
@@ -63,11 +68,12 @@
     }
   }
   &:hover {
-    color: #333;
-    border-color: @blue;
+    color: @col-font-hover;
+    border-color: @col-border-hover;
+    background-color: @col-bg-hover;
   }
   &:hover + .ticket-bar-border {
-    border-left-color: @blue;
+    border-left-color: @col-border-hover;
   }
   &:first-of-type {
     margin-left: 8px;
@@ -75,11 +81,11 @@
     border-bottom-left-radius: 3px;
   }
   &:last-of-type {
-    border-right: 1px solid @grey-light;
+    border-right: 1px solid @col-border;
     border-top-right-radius: 3px;
     border-bottom-right-radius: 3px;
     &:hover {
-      border-right-color: @blue;
+      border-right-color: @col-border-hover;
     }
   }
 }
@@ -89,30 +95,30 @@
   top: 0;
   left: 0;
   width: 100%;
-  background: #8dc63f;
+  background: @col-bg-success;
   color: white;
   &:hover {
     color: white;
   }
 }
 .copy-succeeding {
-  border-color: @green-success !important;
+  border-color: @col-bg-success !important;
   .success-shim {
     display: inline-block;
   }
   & + .ticket-bar-border {
-    border-left-color: @green-success !important;
+    border-left-color: @col-bg-success !important;
   }
 }
 .copy-away {
   .success-shim {
     display: inline-block;
-    transition: opacity @fadeaway-tempo;
+    transition: opacity @tp-fadeaway;
     opacity: 0;
   }
-  transition: border-color @fadeaway-tempo;
+  transition: border-color @tp-fadeaway;
   & + .ticket-bar-border {
-    transition: border-left-color @fadeaway-tempo;
+    transition: border-left-color @tp-fadeaway;
   }
 }
 [id^='rallydetailtitle'] > .x4-component {

@@ -43,12 +43,13 @@ Instead modify the matching .less file. */
 .ticket-bar-border {
   display: inline-block;
   cursor: pointer;
-  border: 1px solid #C7C7C7;
+  border: 1px solid silver;
   border-right: transparent;
   position: relative;
   min-width: 25px;
   height: 30px;
   margin-bottom: 1px;
+  color: #444;
 }
 .ticket-bar-border > span {
   padding: 6px 3px;
@@ -57,11 +58,12 @@ Instead modify the matching .less file. */
   display: inline-block;
 }
 .ticket-bar-border:hover {
-  color: #333;
-  border-color: #00a9e0;
+  color: #222;
+  border-color: silver;
+  background-color: silver;
 }
 .ticket-bar-border:hover + .ticket-bar-border {
-  border-left-color: #00a9e0;
+  border-left-color: silver;
 }
 .ticket-bar-border:first-of-type {
   margin-left: 8px;
@@ -69,12 +71,12 @@ Instead modify the matching .less file. */
   border-bottom-left-radius: 3px;
 }
 .ticket-bar-border:last-of-type {
-  border-right: 1px solid #C7C7C7;
+  border-right: 1px solid silver;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
 .ticket-bar-border:last-of-type:hover {
-  border-right-color: #00a9e0;
+  border-right-color: silver;
 }
 .success-shim {
   display: none;
