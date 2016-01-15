@@ -58,7 +58,10 @@ window.rallyExtension.uly = {
   },
   hashChanged: function() {
     function hasTicketBar() {
-      return document.querySelector(".x4-box-target > .x4-box-item")
+      return document.querySelector("[id ^= 'rallydetailtitlebaredpcomplete'] .x4-box-target > .x4-box-item")
+    }
+    function hasCopyButton(bar) {
+      return bar.querySelectorAll(".ticket-button").length > 0
     }
     function isATicketPage() {
       var hash= window.location.hash
@@ -67,15 +70,21 @@ window.rallyExtension.uly = {
       return reg.test(hash);
     }
     var bar;
-    if(isATicketPage()) {
-      if(bar=hasTicketBar()) {
-        var icons = this.injectTicketIcons(bar);
-        icons.forEach(function(e) {
-          e.elem.addEventListener('click',this.ticketHandler.bind(this));
-        },this);
-      } else {
-        setTimeout(this.hashChanged.bind(this), 1000);
+    if(isATicketPage()) { // we don't need to insert icons
+      if(bar=hasTicketBar()) { // is the UI already loaded
+        if(!hasCopyButton(bar)) { // no copy icon yet
+          var icons = this.injectTicketIcons(bar);
+          icons.forEach(function(e) {
+            e.elem.addEventListener('click',this.ticketHandler.bind(this));
+          },this);
+          return;
+        }
       }
+        // We are in one of the two following cases:
+        // - the page has to title bar: UI is still loading, wait and try again
+        // - the bar is there but with icons: the UI is about to be destroyed and load 
+        //   again, wait and try again
+        setTimeout(this.hashChanged.bind(this), 1000);
     }
   },
   visualSuccess: function (target, isSuccess) {
