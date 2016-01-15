@@ -62,7 +62,7 @@ window.rallyExtension.uly = {
     }
     function isATicketPage() {
       var hash= window.location.hash
-        , reg = /detail\/.*(userstory|task|feature|defect)\/\d*$/
+        , reg = /detail\/.*(userstory|task|feature|defect)\/\d*/
       ;
       return reg.test(hash);
     }
@@ -71,15 +71,14 @@ window.rallyExtension.uly = {
       if(bar=hasTicketBar()) {
         var icons = this.injectTicketIcons(bar);
         icons.forEach(function(e) {
-          e.elem.addEventListener('click',this.visualSuccess);
+          e.elem.addEventListener('click',this.ticketHandler.bind(this));
         },this);
       } else {
         setTimeout(this.hashChanged.bind(this), 1000);
       }
     }
   },
-  visualSuccess: function (e){
-    var target = e.currentTarget;
+  visualSuccess: function (target){
     target.classList.add('copy-succeeding');
     setTimeout(function(){
       target.classList.remove('copy-succeeding');
@@ -93,41 +92,49 @@ window.rallyExtension.uly = {
     if (!keyBox) {
       return false;
     }
-    function addborder(elem ){
+    function addborder(elem, action){
       var border = document.createElement('span');
       border.classList.add('ticket-bar-border');
       border.appendChild(elem);
-      var shim = buildIcon();
-      shim.classList.add('success-shim','octicon-check');
-      border.appendChild(shim)
+      var shim = buildIcon('success-shim octicon-check');
+      border.appendChild(shim);
+      if(action) {
+        border.setAttribute('data-action', action);
+      }
       return border;
     }
-    function buildText(text) {
+    function buildText(text, action) {
       var elem = document.createElement('span');
       elem.classList.add('ticket-bar-text');
       elem.textContent = text || '';
+      if(action) {
+        elem.setAttribute('data-action', action);
+      }
       return elem;
     }
-    function buildIcon(customClass) {
+    function buildIcon(className, action) {
       var elem = document.createElement('span');
-      elem.classList.add('ticket-bar-icon', 'octicon');
+      elem.className += ('ticket-bar-icon octicon ' + (className||''));
+      if(action) {
+        elem.setAttribute('data-action', action);
+      }
       return elem;
     }
     var titleBar = keyBox.parentElement.children[1]
       , barLeft = titleBar.style.left
       , barWidth = titleBar.style.width
-      , mdIcon = buildIcon()
-      , linkIcon = buildIcon()
+      , mdIcon = buildIcon('octicon-markdown')
+      , linkIcon = buildIcon('octicon-link')
       , htmlIcon = buildText('Html')
       , widthByIcon = 28
       , iconsCount = 0
     ;
-    mdIcon.classList.add('octicon-markdown')
-    linkIcon.classList.add('octicon-link')
+    mdIcon.classList.add();
+    linkIcon.classList.add();
     
-    linkIcon = addborder(linkIcon);
-    mdIcon = addborder(mdIcon);
-    htmlIcon = addborder(htmlIcon);
+    mdIcon = addborder(mdIcon, 'markdown');
+    linkIcon = addborder(linkIcon, 'url');
+    htmlIcon = addborder(htmlIcon, 'simpleHtml');
 
     // this will fixed the displayed order
     keyBox.appendChild(htmlIcon);
@@ -145,7 +152,50 @@ window.rallyExtension.uly = {
       {elem: linkIcon, action:'link'}
     ];
   },
-  handler: function(e) {
+  ticketHandler: function(e) {
+    e.stopPropagation();
+    function getLink() {
+      var rawLink = window.location.href;
+      var reg = /^(http.*\/detail\/(userstory|task|feature|defect)\/\d+)/;
+      var res = reg.exec(rawLink);
+      if (!res) {
+        console.warning("Looks like the navigation pattern has been updated."
+      +" If this persist please log an issue (link available in the options chrome://extensions )");
+        return '';
+      } else {
+        return res[0];
+      }
+    }
+    var iconNode, linkNode, nameCellNode
+    , key, url, headline
+    , isDoubleClick
+    , action
+    , infos = {}
+    , linkText
+    , target = e.currentTarget
+    ;
+    key = target.parentElement.textContent.split('Html').shift();
+    url = getLink();
+    headline = target.parentElement.parentElement.querySelector('input.simpleTextDetailField').value
+    action = target.getAttribute('data-action');
+    
+    infos = {
+      key: key,
+      url: url,
+      headline: headline,
+      action: action
+    }
+    linkText = this.createLinkText(infos);
+    var isHtml = ('simpleHtml' === infos.action)
+      , succeeded = this.copyToClipb(linkText, (isHtml?infos.url:undefined))
+      ;
+    if(succeeded) {
+      this.visualSuccess(target);
+    } else {
+      console.error("Unable to copy");
+    }
+  },
+  dashboardHandler: function(e) {
     e.stopPropagation();
     var iconNode, linkNode, nameCellNode
       , key, url, headline
@@ -282,8 +332,8 @@ window.rallyExtension.uly = {
     for (var i=0, link, iconElem; (link=links[i]); i++) {
       link.classList.add(injectedClass);
       iconElem = this.iconTemplate.cloneNode();
-      iconElem.addEventListener('click', this.handler.bind(this));
-      iconElem.addEventListener('dblclick', this.handler.bind(this));
+      iconElem.addEventListener('click', this.dashboardHandler.bind(this));
+      iconElem.addEventListener('dblclick', this.dashboardHandler.bind(this));
       link.parentElement.appendChild(iconElem);
     }
   },

@@ -11,12 +11,12 @@
 @col-bg-success  : @green-success;
 @tp-fadeaway     : 2s;
 .uly-clip-icon {
-  display: inline-block;
-  cursor: pointer;
+  display    : inline-block;
+  cursor     : pointer;
   text-indent: 5px;
-  width: 16px;
-  height: 16px;
-  color: @grey;
+  width      : 16px;
+  height     : 16px;
+  color      : @grey;
   &:hover {
     color: @grey-hover;
   }
@@ -35,32 +35,31 @@
 }
 .uly-farOnTop {
   position: absolute;
-  top: -10000px;
+  top     : -10000px;
 }
 .ticket-bar-icon {
-  text-indent: 0px;
-  color: @grey;
-  // padding: 3px;
+  text-indent   : 0px;
+  color         : @grey;
   vertical-align: top;
 }
 .ticket-bar-text  {
-  font: 11px sans-serif;
-  font-weight: bolder;
-  font-family: sans-serif;
-  color: @grey;
-  padding-top: 7px !important;
+  font          : 11px sans-serif;
+  font-weight   : bolder;
+  font-family   : sans-serif;
+  color         : @grey;
+  padding-top   : 7px !important;
   vertical-align: top;
 }
 .ticket-bar-border {
-  display: inline-block;
-  cursor: pointer;
-  border: 1px solid @col-border;
-  border-right: transparent;
-  position: relative;
-  min-width: 25px;
-  height: 30px;
+  display      : inline-block;
+  cursor       : pointer;
+  border       : 1px solid @col-border;
+  border-right : transparent;
+  position     : relative;
+  min-width    : 25px;
+  height       : 30px;
   margin-bottom: 1px;
-  color: @col-font;
+  color        : @col-font;
   & > span {
     padding: 6px 3px;
     &:not(.success-shim) {
@@ -68,21 +67,21 @@
     }
   }
   &:hover {
-    color: @col-font-hover;
-    border-color: @col-border-hover;
+    color           : @col-font-hover;
+    border-color    : @col-border-hover;
     background-color: @col-bg-hover;
   }
   &:hover + .ticket-bar-border {
     border-left-color: @col-border-hover;
   }
   &:first-of-type {
-    margin-left: 8px;
-    border-top-left-radius: 3px;
+    margin-left              : 8px;
+    border-top-left-radius   : 3px;
     border-bottom-left-radius: 3px;
   }
   &:last-of-type {
-    border-right: 1px solid @col-border;
-    border-top-right-radius: 3px;
+    border-right              : 1px solid @col-border;
+    border-top-right-radius   : 3px;
     border-bottom-right-radius: 3px;
     &:hover {
       border-right-color: @col-border-hover;
@@ -90,13 +89,13 @@
   }
 }
 .success-shim {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  display   : none;
+  position  : absolute;
+  top       : 0;
+  left      : 0;
+  width     : 100%;
   background: @col-bg-success;
-  color: white;
+  color     : white;
   &:hover {
     color: white;
   }
@@ -112,9 +111,9 @@
 }
 .copy-away {
   .success-shim {
-    display: inline-block;
+    display   : inline-block;
     transition: opacity @tp-fadeaway;
-    opacity: 0;
+    opacity   : 0;
   }
   transition: border-color @tp-fadeaway;
   & + .ticket-bar-border {
@@ -122,7 +121,7 @@
   }
 }
 [id^='rallydetailtitle'] > .x4-component {
-  display: flex;
-  flex-flow: row nowrap;
+  display    : flex;
+  flex-flow  : row nowrap;
   align-items: center;
 } 
