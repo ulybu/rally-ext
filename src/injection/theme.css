@@ -54,7 +54,7 @@ Instead modify the matching .less file. */
 .ticket-bar-border > span {
   padding: 6px 3px;
 }
-.ticket-bar-border > span:not(.success-shim) {
+.ticket-bar-border > span:not(.status-shim) {
   display: inline-block;
 }
 .ticket-bar-border:hover {
@@ -78,36 +78,50 @@ Instead modify the matching .less file. */
 .ticket-bar-border:last-of-type:hover {
   border-right-color: silver;
 }
-.success-shim {
+.status-shim {
   display: none;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  background: #8dc63f;
   color: white;
 }
-.success-shim:hover {
+.status-shim:hover {
   color: white;
 }
-.copy-succeeding {
-  border-color: #8dc63f !important;
-}
-.copy-succeeding .success-shim {
+.status-fail .status-shim,
+.status-success .status-shim {
   display: inline-block;
 }
-.copy-succeeding + .ticket-bar-border {
+.status-success {
+  border-color: #8dc63f !important;
+}
+.status-success + .ticket-bar-border {
   border-left-color: #8dc63f !important;
 }
-.copy-away {
+.status-success .status-shim {
+  background: #8dc63f;
+}
+.status-fail {
+  border-color: #ee1c25 !important;
+}
+.status-fail + .ticket-bar-border {
+  border-left-color: #ee1c25 !important;
+}
+.status-fail .status-shim {
+  background: #ee1c25;
+}
+.status-fadeaway {
+  border-color: silver !important;
   transition: border-color 2s;
 }
-.copy-away .success-shim {
+.status-fadeaway .status-shim {
   display: inline-block;
   transition: opacity 2s;
   opacity: 0;
 }
-.copy-away + .ticket-bar-border {
+.status-fadeaway + .ticket-bar-border {
+  border-left-color: silver !important;
   transition: border-left-color 2s;
 }
 [id^='rallydetailtitle'] > .x4-component {

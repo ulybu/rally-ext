@@ -3,12 +3,15 @@
 @green-success   : #8dc63f;
 @green           : #3a874f;
 @green-hover     : @green-success;
+@red-error       : #ee1c25;
+@red-error-hover : #f66349;
 @col-font        : #444;
 @col-font-hover  : #222;
 @col-border      : silver;
 @col-border-hover: silver;
 @col-bg-hover    : silver;
 @col-bg-success  : @green-success;
+@col-bg-fail     : @red-error;
 @tp-fadeaway     : 2s;
 .uly-clip-icon {
   display    : inline-block;
@@ -62,7 +65,7 @@
   color        : @col-font;
   & > span {
     padding: 6px 3px;
-    &:not(.success-shim) {
+    &:not(.status-shim) {
       display: inline-block;
     }
   }
@@ -88,35 +91,49 @@
     }
   }
 }
-.success-shim {
+.status-shim {
   display   : none;
   position  : absolute;
   top       : 0;
   left      : 0;
   width     : 100%;
-  background: @col-bg-success;
   color     : white;
   &:hover {
     color: white;
   }
 }
-.copy-succeeding {
+.status-fail .status-shim,
+.status-success .status-shim {
+  display: inline-block;
+}
+.status-success {
   border-color: @col-bg-success !important;
-  .success-shim {
-    display: inline-block;
-  }
   & + .ticket-bar-border {
     border-left-color: @col-bg-success !important;
   }
+  .status-shim {
+    background: @col-bg-success;
+  }
 }
-.copy-away {
-  .success-shim {
+.status-fail {
+  border-color: @col-bg-fail !important;
+  & + .ticket-bar-border {
+    border-left-color: @col-bg-fail !important;
+  }
+  .status-shim {
+    background: @col-bg-fail;
+  }
+}
+.status-fadeaway {
+  .status-shim {
     display   : inline-block;
     transition: opacity @tp-fadeaway;
     opacity   : 0;
   }
+  border-color: @col-border !important;
   transition: border-color @tp-fadeaway;
   & + .ticket-bar-border {
+    border-left-color: @col-border !important;
     transition: border-left-color @tp-fadeaway;
   }
 }

@@ -78,13 +78,19 @@ window.rallyExtension.uly = {
       }
     }
   },
-  visualSuccess: function (target){
-    target.classList.add('copy-succeeding');
+  visualSuccess: function (target, isSuccess) {
+    var statusClass = isSuccess ? 'status-success' : 'status-fail'
+      , iconClass = isSuccess ? 'octicon-check' : 'octicon-x'
+      , targetIcon = target.querySelector('.status-shim')
+      ;
+    targetIcon.classList.add(iconClass);
+    target.classList.add(statusClass);
     setTimeout(function(){
-      target.classList.remove('copy-succeeding');
-      target.classList.add('copy-away');
+      target.classList.add('status-fadeaway');
       setTimeout(function(){
-        target.classList.remove('copy-away');
+        target.classList.remove(statusClass);
+        target.classList.remove('status-fadeaway');
+        targetIcon.classList.remove(iconClass);
       },2000);
     },200);
   },
@@ -96,7 +102,7 @@ window.rallyExtension.uly = {
       var border = document.createElement('span');
       border.classList.add('ticket-bar-border');
       border.appendChild(elem);
-      var shim = buildIcon('success-shim octicon-check');
+      var shim = buildIcon('status-shim');
       border.appendChild(shim);
       if(action) {
         border.setAttribute('data-action', action);
@@ -189,11 +195,7 @@ window.rallyExtension.uly = {
     var isHtml = ('simpleHtml' === infos.action)
       , succeeded = this.copyToClipb(linkText, (isHtml?infos.url:undefined))
       ;
-    if(succeeded) {
-      this.visualSuccess(target);
-    } else {
-      console.error("Unable to copy");
-    }
+    this.visualSuccess(target,succeeded);
   },
   dashboardHandler: function(e) {
     e.stopPropagation();
@@ -309,7 +311,7 @@ window.rallyExtension.uly = {
       console.log('Copy US/Task was ' + msg);
     } catch(err) {
       succeeded = false;
-      console.warn('Oops, unable to copy');
+      console.warn("Oops, unable to copy the following text: '"+text+"'","\n",err);
     } finally {
       this.p.value = '';
       this.p.blur();
