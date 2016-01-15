@@ -27,12 +27,12 @@ Instead modify the matching .less file. */
   position: absolute;
   top: -10000px;
 }
-.ticket-bar-icon {
+.ticket-button-icon {
   text-indent: 0px;
   color: #444;
   vertical-align: top;
 }
-.ticket-bar-text {
+.ticket-button-text {
   font: 11px sans-serif;
   font-weight: bolder;
   font-family: sans-serif;
@@ -40,7 +40,7 @@ Instead modify the matching .less file. */
   padding-top: 7px !important;
   vertical-align: top;
 }
-.ticket-bar-border {
+.ticket-button {
   display: inline-block;
   cursor: pointer;
   border: 1px solid silver;
@@ -51,31 +51,31 @@ Instead modify the matching .less file. */
   margin-bottom: 1px;
   color: #444;
 }
-.ticket-bar-border > span {
+.ticket-button > span {
   padding: 6px 3px;
 }
-.ticket-bar-border > span:not(.status-shim) {
+.ticket-button > span:not(.status-shim) {
   display: inline-block;
 }
-.ticket-bar-border:hover {
+.ticket-button:hover {
   color: #222;
   border-color: silver;
   background-color: silver;
 }
-.ticket-bar-border:hover + .ticket-bar-border {
+.ticket-button:hover + .ticket-button {
   border-left-color: silver;
 }
-.ticket-bar-border:first-of-type {
+.ticket-button:first-of-type {
   margin-left: 8px;
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
-.ticket-bar-border:last-of-type {
+.ticket-button:last-of-type {
   border-right: 1px solid silver;
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
-.ticket-bar-border:last-of-type:hover {
+.ticket-button:last-of-type:hover {
   border-right-color: silver;
 }
 .status-shim {
@@ -96,7 +96,7 @@ Instead modify the matching .less file. */
 .status-success {
   border-color: #8dc63f !important;
 }
-.status-success + .ticket-bar-border {
+.status-success + .ticket-button {
   border-left-color: #8dc63f !important;
 }
 .status-success .status-shim {
@@ -105,7 +105,7 @@ Instead modify the matching .less file. */
 .status-fail {
   border-color: #ee1c25 !important;
 }
-.status-fail + .ticket-bar-border {
+.status-fail + .ticket-button {
   border-left-color: #ee1c25 !important;
 }
 .status-fail .status-shim {
@@ -120,7 +120,7 @@ Instead modify the matching .less file. */
   transition: opacity 2s;
   opacity: 0;
 }
-.status-fadeaway + .ticket-bar-border {
+.status-fadeaway + .ticket-button {
   border-left-color: silver !important;
   transition: border-left-color 2s;
 }

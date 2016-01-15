@@ -100,7 +100,7 @@ window.rallyExtension.uly = {
     }
     function addborder(elem, action){
       var border = document.createElement('span');
-      border.classList.add('ticket-bar-border');
+      border.classList.add('ticket-button');
       border.appendChild(elem);
       var shim = buildIcon('status-shim');
       border.appendChild(shim);
@@ -111,7 +111,7 @@ window.rallyExtension.uly = {
     }
     function buildText(text, action) {
       var elem = document.createElement('span');
-      elem.classList.add('ticket-bar-text');
+      elem.classList.add('ticket-button-text');
       elem.textContent = text || '';
       if(action) {
         elem.setAttribute('data-action', action);
@@ -120,7 +120,7 @@ window.rallyExtension.uly = {
     }
     function buildIcon(className, action) {
       var elem = document.createElement('span');
-      elem.className += ('ticket-bar-icon octicon ' + (className||''));
+      elem.className += ('ticket-button-icon octicon ' + (className||''));
       if(action) {
         elem.setAttribute('data-action', action);
       }
