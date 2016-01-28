@@ -65,7 +65,7 @@ window.rallyExtension.uly = {
     }
     function isATicketPage() {
       var hash= window.location.hash
-        , reg = /detail\/.*(userstory|task|feature|defect)\/\d*/
+        , reg = /detail\/.*(initiative|userstory|task|feature|defect)\/\d*/
       ;
       return reg.test(hash);
     }
@@ -171,10 +171,10 @@ window.rallyExtension.uly = {
     e.stopPropagation();
     function getLink() {
       var rawLink = window.location.href;
-      var reg = /^(http.*\/detail\/(userstory|task|feature|defect)\/\d+)/;
+      var reg = /^(http.*\/detail(\/portfolioitem)?\/(initiative|userstory|task|feature|defect)\/\d+)/;
       var res = reg.exec(rawLink);
       if (!res) {
-        console.warning("Looks like the navigation pattern has been updated."
+        console.warn("Looks like the navigation pattern has been updated."
       +" If this persist please log an issue (link available in the options chrome://extensions )");
         return '';
       } else {
