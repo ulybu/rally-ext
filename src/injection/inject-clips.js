@@ -82,7 +82,7 @@ window.rallyExtension.uly = {
       }
         // We are in one of the two following cases:
         // - the page has to title bar: UI is still loading, wait and try again
-        // - the bar is there but with icons: the UI is about to be destroyed and load 
+        // - the bar is there but with icons: the UI is about to be destroyed and load
         //   again, wait and try again
         setTimeout(this.hashChanged.bind(this), 1000);
     }
@@ -146,16 +146,19 @@ window.rallyExtension.uly = {
     ;
     mdIcon.classList.add();
     linkIcon.classList.add();
-    
+
     mdIcon = addborder(mdIcon, 'markdown');
+    mdIcon.setAttribute('title','Link with headline as displayed text in markdown syntax (text/plain)');
     linkIcon = addborder(linkIcon, 'url');
+    linkIcon.setAttribute('title','Simple URL (text/plain)');
     htmlIcon = addborder(htmlIcon, 'simpleHtml');
+    htmlIcon.setAttribute('title','HTML link with the headline as displayed text (text/html)');
 
     // this will fixed the displayed order
     keyBox.appendChild(htmlIcon);
     keyBox.appendChild(mdIcon);
     keyBox.appendChild(linkIcon);
-    
+
     barLeft = Number.parseInt(barLeft.substring(0,barLeft.indexOf('p')),10);
     barWidth = Number.parseInt(barWidth.substring(0,barWidth.indexOf('p')),10);
     titleBar.style.left = (barLeft + (widthByIcon*keyBox.childElementCount)) + 'px';
@@ -193,7 +196,7 @@ window.rallyExtension.uly = {
     url = getLink();
     headline = target.parentElement.parentElement.querySelector('input.simpleTextDetailField').value
     action = target.getAttribute('data-action');
-    
+
     infos = {
       key: key,
       url: url,
