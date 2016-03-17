@@ -13,6 +13,6 @@
     "**/.*",
     "bower_components"
   ],
-  "description": "Add Some goodies to Rally",
+  "description": "Copy different type of links from (almost) any screen of Rally",
   "devDependencies": {}
 }
