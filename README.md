@@ -1,12 +1,3 @@
-
-<style>
-
-underline {
-	text-decoration: underline;
-}
-
-</style>
-
 # Rally-ext
 
 Add some goodies to the rally website
@@ -17,7 +8,7 @@ Suggestions, feature requests or bugs **are welcome** as [issues](https://github
 
 ## Features
 
-### Copy/generate links
+### Dashbords and lists
 
 A _copy-to-clipboard-ish_ icon is added next to every link and will generate and copy a link.
 It can handle a click and a double click so you can at any time copy two different types of link
@@ -30,23 +21,17 @@ It can handle a click and a double click so you can at any time copy two differe
 * Key - `US12345` or `F123` or `TA1234` or `DE1234`
 * Markdown - `[FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)`
 * Confluence - `[FE123: something good somewhere|https://xxx.rallydev.com/path/to/task]`
-* Simple HTML - `<a href="https://xxx.rallydev.com/path/to/task">FE123: something good somewhere<a/>`
+* Html - [FE123: something good somewhere](https://xxx.rallydev.com/path/to/task)
+   (*Supported by most email clients*)
 
-### Insert last copied link in a Rally text editor
+### Single ticket page (US, TA, DE, FE)
 
- 1. Click on a copy-to-cipboard icon inserted by rally (see previous feature)
+When you're already working on a ticket, you don't need to go back to the list/grid to copy it. You have three types of links ready to be copied, between the ticket identifier and the description, available from any tab.
 
-  ![clicked on icon](https://cloud.githubusercontent.com/assets/2479249/9082353/c6925558-3b63-11e5-960a-128202d908bc.png)
+Those three types are *Html*, *Markdown* and *Url* (see previous section for details)
 
- 2. Click the link action button and select the new button that appeared with the name of the last link clicked
-
-![url tool opened](https://cloud.githubusercontent.com/assets/2479249/9082702/e725fc78-3b65-11e5-92b3-92ec28503b1c.png)
-
-Then you should have your link inserted 
-
-![link inserted](https://cloud.githubusercontent.com/assets/2479249/9082493/b6df37b0-3b64-11e5-9401-17a5f2b125eb.png)
-
-**Note:** *this works across tabs of the same chrome user session*
+  ![ticket page with additionnal buttons](https://cloud.githubusercontent.com/assets/2479249/13863525/bd69a2e0-ec9a-11e5-9eeb-da9c096057f4.png)
+ 
 ### Customizable
 
 Go to [chrome://extensions](chrome://extensions), look for the rally extension and click <underline>`options`</underline>
@@ -55,10 +40,10 @@ Go to [chrome://extensions](chrome://extensions), look for the rally extension a
 
 Modify,save and reload the Rally to see the changes 
 
-![option page](https://cloud.githubusercontent.com/assets/2479249/9069305/d5e8344e-3ae8-11e5-811f-f5b0ee1f8580.png)
+![option page](https://cloud.githubusercontent.com/assets/2479249/13864011/8656c568-ec9e-11e5-9ed0-de7383ad3f20.png)
 
 ## Install (chrome)
-The extension is published on the chrome web store [**HERE**](https://chrome.google.com/webstore/detail/rally/gaoglodjegfcmjckjagjhbollbibjjnf/related)
+The extension is published on the [**chrome web store**](https://chrome.google.com/webstore/detail/rally/gaoglodjegfcmjckjagjhbollbibjjnf/related)
 
 Once installed it will automatically receive updates
 
