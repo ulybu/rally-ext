@@ -14,7 +14,6 @@ var zipName = 'rally-ext.zip';
 var syncOptions = {
   src: 'manifest.json',
   fields: [
-    'name',
     'version',
     'description'
   ],
