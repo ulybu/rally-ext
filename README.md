@@ -1,4 +1,4 @@
-# Rally-ext
+# Clipboard for Rally
 
 Add some goodies to the rally website
 
